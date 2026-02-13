@@ -1,0 +1,249 @@
+css
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding-top: 50px;
+}
+
+h1{
+    color: #0a3d62;
+}
+
+/*RESET BASICO : QUITA LOS ESTILOS RAROS DEL NAVEGADOR*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*COLORES BASE (Marca)*/
+
+:root{
+
+    --azul: #0a3d62;
+    --celeste: #38ada9;
+    --gris: #f1f2f6;
+    --oscuro: #222;
+
+}
+
+/*cuerpo*/
+
+body{
+    background: var(--gris);
+    color: var(--oscuro);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    background: var(--azul);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+/* LOGO */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* MENÚ */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--celeste);
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(to right, #0a3d62, #38ada9);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.hero button {
+    padding: 12px 25px;
+    border: none;
+    background: white;
+    color: var(--azul);
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hero button:hover {
+    background: var(--gris);
+}
+
+/* SERVICIOS */
+.servicios {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.servicios h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    background: var(--oscuro);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* 📱 RESPONSIVE (CELULARES) */
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        margin: 0 10px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* CARRUSEL */
+.carousel {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+.card h3 {
+    margin-bottom: 10px;
+    color: var(--azul);
+}
+
+.card p {
+    font-size: 14px;
+}
+
+/* CONTACTO */
+.contacto {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.contacto form {
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contacto input,
+.contacto textarea {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.contacto button {
+    padding: 12px;
+    background: var(--azul);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.contacto button:hover {
+    background: var(--celeste);
+}
+.whatsapp {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    line-height: 60px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp:hover {
+    background-color: #1ebe5d;
+    transform: scale(1.1);
+}
+
+

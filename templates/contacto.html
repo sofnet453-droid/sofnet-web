@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto | SOFNET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+
+<header>
+    <div class="logo">SOFNET</div>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/">Servicios</a>
+        <a href="/contacto">Contacto</a>
+    </nav>
+</header>
+
+<section class="contacto">
+    <h2>Contáctanos</h2>
+
+    <form action="/enviar" method="post">
+    <input type="text" name="nombre" placeholder="Tu nombre" required>
+    <input type="email" name="email" placeholder="Tu correo" required>
+    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+    <button type="submit">Enviar</button>
+</form>
+
+</section>
+
+<footer>
+    <p>© 2026 SOFNET</p>
+</footer>
+
+</body>
+</html>

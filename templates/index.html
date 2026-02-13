@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SOFNET</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!--Hace para que se vea super bien el los telefonos celulares-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+<body>
+ 
+    <!--HEADER/MENU-->
+    <header>
+        <div class='logo'>SOFNET</div>
+
+        
+        <nav>
+            <a href="/">Inicio</a>
+            <a href='/servicios'>Servicios</a>
+            <a href="nosotros">Nosotros</a>
+            <a href="/contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- CARRUSEL -->
+<section class="carousel">
+    <div class="slides">
+        <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
+        <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
+        <img src="{{ url_for('static', filename='img/img3.jpeg') }}" class="slide">
+    </div>
+</section>
+
+    <!--Parte Principal-->
+<section class ='hero'>
+
+    <h1>Especialistas en Software & Hardware</h1>
+    <p>Mantenimiento, reparación y soluciones tecnológicas profesionales</p>
+    <button>Contactanos</button>
+</section>    
+
+   <!--SERVICIOS-->
+
+   <section class='servicios'>
+    <h2>Nuestros Servicios</h2>
+
+    <div class='card'>
+          <div class="card">Mantenimiento de PCs</div>
+            <div class="card">Instalación de Software</div>
+            <div class="card">Redes & Soporte Técnico</div>
+        </div>
+    </section>
+
+
+      <!-- FOOTER -->
+    <footer>
+        <p>© 2026 SOFNET - Todos los derechos reservados</p>
+    </footer>
+
+</body>
+</html>
