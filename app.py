@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request
-from flask import request, redirect, url_for
-
+import os
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -46,8 +45,7 @@ def enviar():
 
     return redirect(url_for('contacto'))
 
-
-
-# -------- EJECUCIÓN --------
+# -------- PUERTO PARA RENDER --------
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))  # <- clave para Render
+    app.run(host="0.0.0.0", port=port)
