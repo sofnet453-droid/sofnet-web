@@ -19,3 +19,15 @@ updateClock();
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
+
+let size = 16;
+
+function increaseText() {
+  size += 2;
+  document.body.style.fontSize = size + "px";
+}
+
+function decreaseText() {
+  size -= 2;
+  document.body.style.fontSize = size + "px";
+}
