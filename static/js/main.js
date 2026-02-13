@@ -32,3 +32,10 @@ function decreaseText() {
   size -= 2;
   document.body.style.fontSize = size + "px";
 }
+
+function readPage() {
+  const text = document.body.innerText;
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "es-ES";
+  window.speechSynthesis.speak(speech);
+}
