@@ -3,87 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>SOFNET</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!--Hace para que se vea super bien el los telefonos celulares-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   
-    
-
-
-
 </head>
 <body>
- 
-    <!--HEADER/MENU-->
+
+    <!-- HEADER / MENU -->
     <header>
         <div class='logo'>SOFNET</div>
-
-        
-        <button onclick="toggleTheme()">Modo oscuro</button>
-         <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
         <nav>
             <a href="/">Inicio</a>
             <a href='/servicios'>Servicios</a>
-            <a href="nosotros">Nosotros</a>
+            <a href="/nosotros">Nosotros</a>
             <a href="/contacto">Contacto</a>
         </nav>
+        <button onclick="toggleTheme()">Modo oscuro</button>
+        <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
     </header>
 
+    <!-- BOTONES DE ACCESIBILIDAD -->
+    <div class="accesibilidad">
+        <button onclick="increaseText()">A+</button>
+        <button onclick="decreaseText()">A-</button>
+        <button onclick="readPage()">🔊 Leer página</button>
+    </div>
 
-    <button onclick="increaseText()">A+</button>
-    <button onclick="decreaseText()">A-</button>
-
+    <!-- HERO -->
+    <section class='hero'>
+        <h1>Especialistas en Software & Hardware</h1>
+        <p>Mantenimiento, reparación y soluciones tecnológicas profesionales</p>
+        <a href="/contacto"><button>Contactanos</button></a>
+    </section>
 
     <!-- CARRUSEL -->
+    <section class="carousel-section">
+        <div class="carousel">
+            <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
+            <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
+            <img src="{{ url_for('static', filename='img/img3.jpeg') }}" class="slide">
+            <img src="{{ url_for('static', filename='img/img4.jpeg') }}" class="slide">
+        </div>
+    </section>
+
+    <!-- RELOJ -->
     <div id="clock"></div>
 
-<section class="carousel-section">
-    <div class="carousel">
-        <img src="/static/img/img1.jpeg" class="slide active">
-        <img src="/static/img/img2.jpeg" class="slide">
-        <img src="/static/img/img3.jpeg" class="slide">
-        <img src="/static/img/img4.jpeg" class="slide">
-    </div>
-</section>
-
-
-    <!--Parte Principal-->
-<section class ='hero'>
-
-    <h1>Especialistas en Software & Hardware</h1>
-    <p>Mantenimiento, reparación y soluciones tecnológicas profesionales</p>
-    <button>Contactanos</button>
-</section>    
-
-   <!--SERVICIOS-->
-
-   <section class='servicios'>
-    <h2>Nuestros Servicios</h2>
-
-    <div class='card'>
-          <div class="card">Mantenimiento de PCs</div>
+    <!-- SERVICIOS -->
+    <section class='servicios'>
+        <h2>Nuestros Servicios</h2>
+        <div class='cards'>
+            <div class="card">Mantenimiento de PCs</div>
             <div class="card">Instalación de Software</div>
             <div class="card">Redes & Soporte Técnico</div>
         </div>
     </section>
 
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-
-
-      <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer>
         <p>© 2026 SOFNET - Todos los derechos reservados</p>
     </footer>
 
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
-    
-  <script src="/static/js/main.js"></script>
 </html>
