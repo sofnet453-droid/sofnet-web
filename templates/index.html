@@ -14,6 +14,9 @@
     <i class="fa-brands fa-whatsapp"></i>
 </a>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   
+    <button onclick="toggleTheme()">Modo oscuro</button>
+
 
 
 </head>
@@ -24,6 +27,8 @@
         <div class='logo'>SOFNET</div>
 
         
+
+         <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
         <nav>
             <a href="/">Inicio</a>
             <a href='/servicios'>Servicios</a>
@@ -33,12 +38,15 @@
     </header>
 
     <!-- CARRUSEL -->
+    <div id="clock"></div>
+
 <section class="carousel">
-    <div class="slides">
-        <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
-        <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
-        <img src="{{ url_for('static', filename='img/img3.jpeg') }}" class="slide">
-    </div>
+    <div class="carousel">
+        <img src="/static/img/img1.jpeg" class="slide active">
+        <img src="/static/img/img2.jpeg" class="slide">
+         <img src="/static/img/img3.jpeg" class="slide">
+   </div>
+
 </section>
 
     <!--Parte Principal-->

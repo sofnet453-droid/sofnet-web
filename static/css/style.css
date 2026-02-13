@@ -82,6 +82,7 @@ nav a:hover {
 .hero p {
     font-size: 18px;
     margin-bottom: 25px;
+    opacity: 0.9;
 }
 
 .hero button {
@@ -162,10 +163,9 @@ footer {
 
 /* CARRUSEL */
 .carousel {
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+  position: relative;
 }
 
 .slides {
@@ -174,10 +174,9 @@ footer {
 }
 
 .slide {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
+  width: 100%;
+  display: none;
+  border-radius: 12px;
 }
 
 .slide.active {
@@ -246,4 +245,14 @@ footer {
     transform: scale(1.1);
 }
 
+#clock {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+  color: #555;
+}
 
+.dark {
+  background-color: #121212;
+  color: white;
+}
