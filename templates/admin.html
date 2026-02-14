@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Panel Admin | SOFNET{% endblock %}
+
+{% block content %}
+
+<section class="admin">
+    <h2>Panel de Mensajes</h2>
+
+    {% if mensajes %}
+        {% for m in mensajes %}
+            <div class="card-mensaje">
+                <p><strong>Nombre:</strong> {{ m[1] }}</p>
+                <p><strong>Email:</strong> {{ m[2] }}</p>
+                <p><strong>Mensaje:</strong></p>
+                <p>{{ m[3] }}</p>
+                <small>Fecha: {{ m[4] }}</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay mensajes todavía.</p>
+    {% endif %}
+
+</section>
+
+{% endblock %}

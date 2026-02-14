@@ -408,3 +408,14 @@ footer {
     font-weight: bold;
     text-align: center;
 }
+.admin{
+    padding: 40px;
+}
+
+.card-mensaje{
+    background: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}

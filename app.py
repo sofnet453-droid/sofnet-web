@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
-from database import crear_db, guardar_mensaje
+from database import crear_db, guardar_mensaje, obtener_mensajes
+
 
 # crea la base de datos automáticamente al iniciar
 crear_db()
@@ -27,6 +28,13 @@ def nosotros():
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
+
+# -------- PANEL ADMIN --------
+@app.route('/admin')
+def admin():
+    mensajes = obtener_mensajes()
+    return render_template('admin.html', mensajes=mensajes)
+
 
 # -------- GUARDAR MENSAJE --------
 @app.route('/enviar', methods=['POST'])
