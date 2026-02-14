@@ -17,13 +17,17 @@
 
     <!-- HEADER / MENU -->
     <header>
-        <div class='logo'>SOFNET</div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
+        </div>
+
         <nav>
             <a href="/">Inicio</a>
             <a href='/servicios'>Servicios</a>
             <a href="/nosotros">Nosotros</a>
             <a href="/contacto">Contacto</a>
         </nav>
+
         <button onclick="toggleTheme()">Modo oscuro</button>
         <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
     </header>
