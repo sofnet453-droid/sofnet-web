@@ -7,6 +7,15 @@
 <section class="contacto">
     <h2>Contáctanos</h2>
 
+    <!-- MENSAJE DE CONFIRMACIÓN -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alerta">
+            {{ messages[0] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <form action="/enviar" method="post" class="formulario">
         <input type="text" name="nombre" placeholder="Tu nombre" required>
 

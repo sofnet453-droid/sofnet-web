@@ -398,3 +398,13 @@ footer {
         flex-direction: column;
     }
 }
+
+.alerta{
+    background: #25D366;
+    color: white;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}
