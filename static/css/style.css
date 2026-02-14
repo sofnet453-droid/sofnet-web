@@ -324,3 +324,46 @@ footer {
         max-width: 300px;
     }
 }
+/* =========================
+   MENU HAMBURGUESA
+========================= */
+
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+
+/* SOLO EN CELULAR */
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-toggle {
+        display: block;
+        align-self: flex-end;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: var(--azul);
+        margin-top: 10px;
+        padding: 10px 0;
+    }
+
+    nav a {
+        margin: 15px 0;
+        text-align: center;
+    }
+
+    nav.active {
+        display: flex;
+    }
+}
