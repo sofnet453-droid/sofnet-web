@@ -1,34 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-      <meta charset="UTF-8">
-    <title>Contacto | SOFNET</title>
+    <meta charset="UTF-8">
+    <title>Nosotros | SOFNET</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- FAVICON -->
+    <!-- FAVICON -->
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
-    
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    
 </head>
+
 <body>
 
-<nav>
-    <a href="/">Inicio</a>
-    <a href="/servicios">Servicios</a>
-    <a href="/nosotros">Nosotros</a>
-    <a href="/contacto">Contacto</a>
-</nav>
+<header>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
+    </div>
 
-<h1>Sobre Nosotros</h1>
-<p>En SOFNET ofrecemos soluciones tecnológicas, desarrollo web y soporte digital.</p>
+    <!-- BOTON HAMBURGUESA -->
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav id="nav">
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/nosotros">Nosotros</a>
+        <a href="/contacto">Contacto</a>
+    </nav>
+</header>
+
+<section class="nosotros">
+    <h1>Sobre Nosotros</h1>
+
+    <p>
+        En <strong>SOFNET</strong> desarrollamos soluciones tecnológicas innovadoras,
+        ofreciendo desarrollo de software, soporte técnico especializado,
+        instalación de programas, configuración de sistemas operativos
+        y optimización de equipos informáticos.
+    </p>
+
+    <div class="mision-vision">
+        <h2>Misión</h2>
+        <p>
+            Brindar soluciones tecnológicas eficientes y seguras que impulsen
+            el crecimiento de empresas y emprendedores, garantizando calidad,
+            innovación y soporte confiable en cada proyecto.
+        </p>
+
+        <h2>Visión</h2>
+        <p>
+            Ser una empresa líder en desarrollo de software y servicios tecnológicos,
+            reconocida por su profesionalismo, compromiso y capacidad de transformar
+            necesidades digitales en soluciones modernas y funcionales.
+        </p>
+    </div>
+</section>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<footer>
+    <p>© 2026 SOFNET - Todos los derechos reservados</p>
+</footer>
+
+<!-- SCRIPT MENU HAMBURGUESA -->
+<script>
+const toggle = document.getElementById("menu-toggle");
+const nav = document.getElementById("nav");
+
+toggle.addEventListener("click", () => {
+    nav.classList.toggle("active");
+
+    if(nav.classList.contains("active")){
+        toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+        toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+});
+</script>
 
 </body>
 </html>

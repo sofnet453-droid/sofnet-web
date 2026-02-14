@@ -5,7 +5,7 @@
     <title>Servicios | SOFNET</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- FAVICON -->
+    <!-- FAVICON -->
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 
@@ -24,13 +24,18 @@
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
     </div>
 
-    <div class="logo">SOFNET</div>
-    <nav>
+    <!-- BOTON HAMBURGUESA -->
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav id="nav">
         <a href="/">Inicio</a>
         <a href="/servicios">Servicios</a>
         <a href="/nosotros">Nosotros</a>
         <a href="/contacto">Contacto</a>
     </nav>
+
 </header>
 
 <section class="servicios">
@@ -65,7 +70,7 @@
     </ul>
 </section>
 
-<!-- WHATSAPP (correctamente dentro del body) -->
+<!-- WHATSAPP -->
 <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
@@ -73,6 +78,22 @@
 <footer>
     <p>© 2026 SOFNET - Todos los derechos reservados</p>
 </footer>
+
+<!-- SCRIPT MENU HAMBURGUESA -->
+<script>
+const toggle = document.getElementById("menu-toggle");
+const nav = document.getElementById("nav");
+
+toggle.addEventListener("click", () => {
+    nav.classList.toggle("active");
+
+    if(nav.classList.contains("active")){
+        toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+        toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+});
+</script>
 
 </body>
 </html>
