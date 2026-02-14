@@ -1,6 +1,7 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from database import crear_db, guardar_mensaje, obtener_mensajes
+
 
 
 # crea la base de datos automáticamente al iniciar
@@ -32,8 +33,27 @@ def contacto():
 # -------- PANEL ADMIN --------
 @app.route('/admin')
 def admin():
+    if not session.get('admin'):
+        return redirect(url_for('login_admin'))
+
     mensajes = obtener_mensajes()
     return render_template('admin.html', mensajes=mensajes)
+
+
+# -------- LOGIN ADMIN --------
+@app.route('/login-admin', methods=['GET', 'POST'])
+def login_admin():
+    if request.method == 'POST':
+        password = request.form['password']
+
+        if password == "admin123":  # ← puedes cambiar esta clave
+            session['admin'] = True
+            return redirect(url_for('admin'))
+        else:
+            flash("Contraseña incorrecta")
+
+    return render_template('login_admin.html')
+
 
 
 # -------- GUARDAR MENSAJE --------
