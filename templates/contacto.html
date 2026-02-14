@@ -22,7 +22,18 @@
     <div class="logo">
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
     </div>
-    <div class="logo">SOFNET</div>
+    
+    
+    <!-- BOTON HAMBURGUESA -->
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+     <!-- BOTON MODO OSCURO -->
+    <div class="dark-toggle" id="dark-toggle">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
     <nav>
         <a href="/">Inicio</a>
         <a href="/servicios">Servicios</a>
@@ -50,6 +61,45 @@
 <footer>
     <p>© 2026 SOFNET - Todos los derechos reservados</p>
 </footer>
+
+ <!-- SCRIPT HAMBURGUESA -->
+    <script>
+        const toggle = document.getElementById("menu-toggle");
+        const nav = document.getElementById("nav");
+
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+
+            if(nav.classList.contains("active")){
+                toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        });
+    </script>
+    <!-- SCRIPT MODO OSCURO -->
+<script>
+const darkToggle = document.getElementById("dark-toggle");
+const body = document.body;
+
+// Cargar preferencia guardada
+if(localStorage.getItem("modo") === "oscuro"){
+    body.classList.add("dark-mode");
+    darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+
+darkToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+
+    if(body.classList.contains("dark-mode")){
+        darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        localStorage.setItem("modo", "oscuro");
+    } else {
+        darkToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        localStorage.setItem("modo", "claro");
+    }
+});
+
 
 </body>
 </html>

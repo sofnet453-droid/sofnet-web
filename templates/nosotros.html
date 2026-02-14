@@ -28,6 +28,12 @@
         <i class="fa-solid fa-bars"></i>
     </div>
 
+    
+    <!-- BOTON MODO OSCURO -->
+    <div class="dark-toggle" id="dark-toggle">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
     <nav id="nav">
         <a href="/">Inicio</a>
         <a href="/servicios">Servicios</a>
@@ -87,6 +93,29 @@ toggle.addEventListener("click", () => {
     }
 });
 </script>
+
+<!-- SCRIPT MODO OSCURO -->
+<script>
+const darkToggle = document.getElementById("dark-toggle");
+const body = document.body;
+
+// Cargar preferencia guardada
+if(localStorage.getItem("modo") === "oscuro"){
+    body.classList.add("dark-mode");
+    darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+
+darkToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+
+    if(body.classList.contains("dark-mode")){
+        darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        localStorage.setItem("modo", "oscuro");
+    } else {
+        darkToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        localStorage.setItem("modo", "claro");
+    }
+});
 
 </body>
 </html>
