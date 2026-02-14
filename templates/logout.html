@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Logout</title></head>
+<body>
+<h2>Hasta luego</h2>
+<audio autoplay>
+  <source src="{{ url_for('static', filename='goodbye.mp3') }}" type="audio/mpeg">
+</audio>
+<script>
+  setTimeout(() => window.location.href='{{ url_for("inicio") }}', 2000);
+</script>
+</body>
+</html>

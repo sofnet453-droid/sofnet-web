@@ -1,8 +1,10 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from database import crear_db, guardar_mensaje, obtener_mensajes, validar_usuario
+from database import crear_db, guardar_mensaje, obtener_mensajes, validar_usuario, registrar_usuario, activar_usuario
+import smtplib
+from email.message import EmailMessage
 
-# crear base de datos automáticamente
+# Crear base de datos automáticamente
 crear_db()
 
 app = Flask(__name__)
@@ -44,19 +46,68 @@ def login():
 
         if usuario:
             session['usuario'] = usuario[1]
-            session['rol'] = usuario[3]
+            session['rol'] = usuario[4]  # rol
+            flash("¡Bienvenido!")
             return redirect(url_for('admin'))
         else:
-            flash("Credenciales incorrectas")
+            flash("Credenciales incorrectas o usuario no activado")
 
     return render_template('login.html')
 
 
-# -------- CERRAR SESIÓN --------
+# -------- LOGOUT --------
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('inicio'))
+    return render_template('logout.html')
+
+
+# -------- REGISTRO --------
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        confirmar = request.form['confirmar']
+
+        if password != confirmar:
+            flash("Las contraseñas no coinciden")
+            return redirect(url_for('registro'))
+
+        token, correo = registrar_usuario(username, email, password)
+        if not token:
+            flash("El usuario o correo ya existe")
+            return redirect(url_for('registro'))
+
+        # Enviar email de confirmación
+        msg = EmailMessage()
+        msg['Subject'] = 'Confirma tu cuenta'
+        msg['From'] = 'tucorreo@gmail.com'
+        msg['To'] = correo
+        link = url_for('confirmar', token=token, _external=True)
+        msg.set_content(f"Hola {username}, confirma tu cuenta haciendo click aquí: {link}")
+
+        try:
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login('tucorreo@gmail.com', 'tu_password')
+                smtp.send_message(msg)
+            flash("Correo de confirmación enviado. Revisa tu bandeja.")
+        except Exception as e:
+            print(e)
+            flash("No se pudo enviar el correo. Contacta con el administrador.")
+
+        return redirect(url_for('login'))
+
+    return render_template('registro.html')
+
+
+# -------- CONFIRMAR CORREO --------
+@app.route('/confirmar/<token>')
+def confirmar(token):
+    activar_usuario(token)
+    flash("Cuenta activada correctamente. Ahora puedes iniciar sesión")
+    return redirect(url_for('login'))
 
 
 # -------- PANEL ADMIN / COLABORADOR --------
@@ -80,9 +131,7 @@ def enviar():
     mensaje = request.form['mensaje']
 
     guardar_mensaje(nombre, email, mensaje)
-
     flash("Mensaje enviado correctamente")
-
     return redirect(url_for('contacto'))
 
 

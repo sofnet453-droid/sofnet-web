@@ -20,6 +20,18 @@
         <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>
     </form>
+
+    <p>¿No tienes cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a></p>
 </section>
+
+<!-- Audio de bienvenida -->
+<audio id="audio_welcome" src="{{ url_for('static', filename='welcome.mp3') }}"></audio>
+
+<script>
+window.onload = function() {
+    var audio = document.getElementById("audio_welcome");
+    if(audio) audio.play().catch(e => console.log("Autoplay bloqueado, click para escuchar"));
+}
+</script>
 
 {% endblock %}

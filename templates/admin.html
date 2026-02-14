@@ -7,6 +7,13 @@
 <section class="admin">
     <h2>Panel de Mensajes</h2>
 
+    <!-- Gadget de calendario y reloj -->
+    <div id="gadget" style="margin-bottom:20px; padding:10px; border:1px solid #ccc; display:inline-block;">
+        <h3>Calendario y Reloj</h3>
+        <p id="reloj" style="font-weight:bold; font-size:1.2em;"></p>
+        <p id="fecha" style="font-weight:bold;"></p>
+    </div>
+
     {% if mensajes %}
         {% for m in mensajes %}
             <div class="card-mensaje">
@@ -22,5 +29,20 @@
     {% endif %}
 
 </section>
+
+<!-- Script para actualizar reloj y fecha -->
+<script>
+function actualizarReloj() {
+    const ahora = new Date();
+    const hora = String(ahora.getHours()).padStart(2,'0') + ":" +
+                 String(ahora.getMinutes()).padStart(2,'0') + ":" +
+                 String(ahora.getSeconds()).padStart(2,'0');
+    const fecha = ahora.toLocaleDateString();
+    document.getElementById('reloj').textContent = hora;
+    document.getElementById('fecha').textContent = fecha;
+}
+setInterval(actualizarReloj, 1000);
+actualizarReloj();
+</script>
 
 {% endblock %}
