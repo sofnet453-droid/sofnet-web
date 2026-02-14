@@ -278,26 +278,38 @@ footer {
     color: #555;
 }
 
-/* =========================
-   MODO OSCURO
-========================= */
-.dark {
+/* BOTON MODO OSCURO */
+.dark-toggle {
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    margin-right: 15px;
+}
+
+/* TRANSICION SUAVE */
+body {
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* MODO OSCURO */
+.dark-mode {
     background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode header {
+    background-color: #0b2239;
+}
+
+.dark-mode nav a {
     color: white;
 }
 
-.dark .hero {
-    background: linear-gradient(135deg, #121212, #1a1a1a);
-}
-
-.dark .card {
-    background: #1e1e1e;
+.dark-mode .card {
+    background-color: #1e1e1e;
     color: white;
 }
 
-.dark footer {
-    background: #000;
-}
 
 /* =========================
    RESPONSIVE
@@ -368,34 +380,3 @@ footer {
     }
 }
 
-/* BOTON MODO OSCURO */
-.dark-toggle {
-    cursor: pointer;
-    font-size: 20px;
-    color: white;
-    margin-right: 15px;
-}
-
-/* TRANSICION SUAVE */
-body {
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* MODO OSCURO */
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-.dark-mode header {
-    background-color: #0b2239;
-}
-
-.dark-mode nav a {
-    color: white;
-}
-
-.dark-mode .card {
-    background-color: #1e1e1e;
-    color: white;
-}

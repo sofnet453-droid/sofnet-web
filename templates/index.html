@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio | SOFNET</title>
+    <title>SOFNET</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- FAVICON -->
@@ -11,69 +11,101 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
-<header>
-    <div class="logo">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
+    <!-- HEADER / MENU -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
+        </div>
+
+         <!-- BOTON MODO OSCURO -->
+        <div class="dark-toggle" id="dark-toggle">
+             <i class="fa-solid fa-moon"></i>
+        </div>
+
+        <!-- BOTON HAMBURGUESA -->
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav id="nav">
+            <a href="/">Inicio</a>
+            <a href='/servicios'>Servicios</a>
+            <a href="/nosotros">Nosotros</a>
+            <a href="/contacto">Contacto</a>
+        </nav>
+
+        <button onclick="toggleTheme()">Modo oscuro</button>
+        <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
+    </header>
+
+    <!-- BOTONES DE ACCESIBILIDAD -->
+    <div class="accesibilidad">
+        <button onclick="increaseText()">A+</button>
+        <button onclick="decreaseText()">A-</button>
+        <button onclick="readPage()">🔊 Leer página</button>
     </div>
 
-    <!-- BOTON MODO OSCURO -->
-    <div class="dark-toggle" id="dark-toggle">
-        <i class="fa-solid fa-moon"></i>
-    </div>
+    <!-- HERO -->
+    <section class='hero'>
+        <h1>Especialistas en Software & Hardware</h1>
+        <p>Mantenimiento, reparación y soluciones tecnológicas profesionales</p>
+        <a href="/contacto"><button>Contactanos</button></a>
+    </section>
 
-    <!-- BOTON HAMBURGUESA -->
-    <div class="menu-toggle" id="menu-toggle">
-        <i class="fa-solid fa-bars"></i>
-    </div>
+    <!-- CARRUSEL -->
+    <section class="carousel-section">
+        <div class="carousel">
+            <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
+            <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
+            <img src="{{ url_for('static', filename='img/img3.jpeg') }}" class="slide">
+            <img src="{{ url_for('static', filename='img/img4.jpeg') }}" class="slide">
+        </div>
+    </section>
 
-    <nav id="nav">
-        <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/nosotros">Nosotros</a>
-        <a href="/contacto">Contacto</a>
-    </nav>
-</header>
+    <!-- RELOJ -->
+    <div id="clock"></div>
 
-<section class="inicio">
-    <h1>Bienvenido a SOFNET</h1>
-    <p>
-        Desarrollo de software, soporte técnico,
-        instalación de sistemas operativos y soluciones digitales modernas.
-    </p>
-</section>
+    <!-- SERVICIOS -->
+    <section class='servicios'>
+        <h2>Nuestros Servicios</h2>
+        <div class='cards'>
+            <div class="card">Mantenimiento de PCs</div>
+            <div class="card">Instalación de Software</div>
+            <div class="card">Redes & Soporte Técnico</div>
+        </div>
+    </section>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-<footer>
-    <p>© 2026 SOFNET - Todos los derechos reservados</p>
-</footer>
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 SOFNET - Todos los derechos reservados</p>
+    </footer>
 
-<!-- SCRIPT MENU HAMBURGUESA -->
-<script>
-const toggle = document.getElementById("menu-toggle");
-const nav = document.getElementById("nav");
+    <!-- SCRIPT HAMBURGUESA -->
+    <script>
+        const toggle = document.getElementById("menu-toggle");
+        const nav = document.getElementById("nav");
 
-toggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
 
-    if(nav.classList.contains("active")){
-        toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-    } else {
-        toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }
-});
-</script>
+            if(nav.classList.contains("active")){
+                toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        });
+    </script>
 
+    
 <!-- SCRIPT MODO OSCURO -->
 <script>
 const darkToggle = document.getElementById("dark-toggle");
@@ -97,6 +129,9 @@ darkToggle.addEventListener("click", () => {
     }
 });
 </script>
+
+    <!-- TU JS ORIGINAL -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 </html>
