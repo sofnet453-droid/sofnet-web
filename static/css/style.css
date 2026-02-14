@@ -23,7 +23,6 @@ body{
     color: var(--oscuro);
     line-height: 1.6;
     text-align: center;
-    padding-top: 50px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -40,13 +39,14 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 10px 40px;
     flex-wrap: wrap;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+.logo-img {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
 }
 
 nav a {
@@ -54,7 +54,7 @@ nav a {
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
-    transition: color 0.3s;
+    transition: 0.3s;
 }
 
 nav a:hover {
@@ -92,7 +92,7 @@ nav a:hover {
     border-radius: 8px;
     font-weight: bold;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .hero button:hover {
@@ -121,7 +121,7 @@ nav a:hover {
     color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .accesibilidad button:hover {
@@ -161,7 +161,6 @@ nav a:hover {
 ========================= */
 .servicios {
     padding: 60px 20px;
-    text-align: center;
 }
 
 .servicios h2 {
@@ -180,18 +179,18 @@ nav a:hover {
     background: white;
     padding: 30px 20px;
     width: 250px;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     font-weight: bold;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .cards .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
@@ -200,7 +199,6 @@ nav a:hover {
 ========================= */
 .contacto {
     padding: 60px 20px;
-    text-align: center;
 }
 
 .contacto form {
@@ -215,6 +213,8 @@ nav a:hover {
     margin-bottom: 15px;
     padding: 12px;
     font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
 .contacto button {
@@ -223,7 +223,8 @@ nav a:hover {
     color: white;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    transition: 0.3s ease;
 }
 
 .contacto button:hover {
@@ -259,7 +260,7 @@ footer {
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     z-index: 1000;
-    transition: transform 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .whatsapp:hover {
@@ -299,7 +300,7 @@ footer {
 }
 
 /* =========================
-   RESPONSIVE CELULARES
+   RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
     header {
@@ -322,10 +323,4 @@ footer {
         width: 100%;
         max-width: 300px;
     }
-}
-/******/
-
-.logo-img {
-    height: 60px;
-    width: auto;
 }

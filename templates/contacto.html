@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Contacto | SOFNET</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- FAVICON -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
@@ -15,6 +20,9 @@
 <body>
 
 <header>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SOFNET Logo" class="logo-img">
+    </div>
     <div class="logo">SOFNET</div>
     <nav>
         <a href="/">Inicio</a>
