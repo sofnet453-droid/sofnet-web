@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SOFNET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo-img">
+    </div>
+
+    <div class="dark-toggle" id="dark-toggle">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav id="nav">
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/nosotros">Nosotros</a>
+        <a href="/contacto">Contacto</a>
+    </nav>
+
+    <p>Desarrollo de software y soluciones tecnológicas para empresas</p>
+</header>
+
+
+<!-- ACCESIBILIDAD GLOBAL -->
+<div class="accesibilidad">
+    <button onclick="increaseText()">A+</button>
+    <button onclick="decreaseText()">A-</button>
+    <button onclick="readPage()">🔊 Leer página</button>
+</div>
+
+
+<!-- CONTENIDO DE CADA PAGINA -->
+{% block content %}{% endblock %}
+
+
+<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<footer>
+    <p>© 2026 SOFNET - Todos los derechos reservados</p>
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

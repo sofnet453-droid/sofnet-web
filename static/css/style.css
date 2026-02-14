@@ -177,8 +177,9 @@ nav a:hover {
 
 .cards .card {
     background: white;
-    padding: 30px 20px;
-    width: 250px;
+    padding: 35px 25px;
+    width: 260px;
+    min-height: 160px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     font-weight: bold;
@@ -202,15 +203,16 @@ nav a:hover {
 }
 
 .contacto form {
-    max-width: 400px;
+    width: 90%;
+    max-width: 420px;
     margin: auto;
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 .contacto input,
 .contacto textarea {
-    margin-bottom: 15px;
     padding: 12px;
     font-size: 14px;
     border-radius: 6px;
@@ -243,7 +245,7 @@ footer {
 }
 
 /* =========================
-   WHATSAPP FLOTANTE
+   WHATSAPP
 ========================= */
 .whatsapp {
     position: fixed;
@@ -275,7 +277,8 @@ footer {
     text-align: center;
     font-size: 18px;
     margin: 20px;
-    color: #555;
+    color: var(--azul);
+    font-weight: bold;
 }
 
 /* BOTON MODO OSCURO */
@@ -286,12 +289,10 @@ footer {
     margin-right: 15px;
 }
 
-/* TRANSICION SUAVE */
-body {
-    transition: background 0.3s ease, color 0.3s ease;
-}
+/* =========================
+   DARK MODE COMPLETO
+========================= */
 
-/* MODO OSCURO */
 .dark-mode {
     background-color: #121212;
     color: #ffffff;
@@ -305,41 +306,44 @@ body {
     color: white;
 }
 
+.dark-mode .hero {
+    background: linear-gradient(135deg, #050d18, #0b2239);
+}
+
+.dark-mode .servicios,
+.dark-mode .nosotros,
+.dark-mode .contacto {
+    background: #121212;
+}
+
 .dark-mode .card {
     background-color: #1e1e1e;
     color: white;
 }
 
+.dark-mode footer {
+    background: #000;
+}
+
+.dark-mode input,
+.dark-mode textarea {
+    background: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+    color: #aaa;
+}
+
+.dark-mode #clock {
+    color: #ddd;
+}
 
 /* =========================
    RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-    }
-
-    nav {
-        margin-top: 10px;
-    }
-
-    nav a {
-        margin: 0 10px;
-    }
-
-    .hero h1 {
-        font-size: 28px;
-    }
-
-    .cards .card {
-        width: 100%;
-        max-width: 300px;
-    }
-}
-/* =========================
-   MENU HAMBURGUESA
-========================= */
-
 .menu-toggle {
     display: none;
     font-size: 28px;
@@ -347,7 +351,6 @@ body {
     color: white;
 }
 
-/* SOLO EN CELULAR */
 @media (max-width: 768px) {
 
     header {
@@ -378,5 +381,20 @@ body {
     nav.active {
         display: flex;
     }
-}
 
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .cards .card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .accesibilidad {
+        top: auto;
+        bottom: 90px;
+        right: 15px;
+        flex-direction: column;
+    }
+}
