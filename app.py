@@ -55,7 +55,13 @@ def login():
             session['usuario'] = usuario[1]
             session['rol'] = usuario[4]
             flash("¡Bienvenido!")
-            return redirect(url_for('admin'))
+
+            # 🔥 REDIRECCIÓN SEGÚN ROL
+            if usuario[4] == "admin":
+                return redirect(url_for('dashboard_admin'))
+            else:
+                return redirect(url_for('dashboard_colaborador'))
+
         else:
             flash("Credenciales incorrectas o usuario no activado")
 
@@ -100,13 +106,18 @@ def login_google():
     session['rol'] = usuario[4]
 
     flash("Sesión iniciada con Google")
-    return redirect(url_for("admin"))
+
+    # 🔥 REDIRECCIÓN SEGÚN ROL
+    if usuario[4] == "admin":
+        return redirect(url_for("dashboard_admin"))
+    else:
+        return redirect(url_for("dashboard_colaborador"))
 
 # -------- LOGOUT --------
 @app.route('/logout')
 def logout():
     session.clear()
-    return render_template('logout.html')
+    return redirect(url_for('inicio'))
 
 # -------- REGISTRO --------
 @app.route('/registro', methods=['GET', 'POST'])
@@ -153,15 +164,27 @@ def confirmar(token):
     flash("Cuenta activada correctamente. Ahora puedes iniciar sesión")
     return redirect(url_for('login'))
 
-# -------- PANEL ADMIN / COLABORADOR --------
-@app.route('/admin')
-def admin():
-    if not session.get('usuario'):
+# ============================================================
+# 🔐 DASHBOARD SEPARADO POR ROLES
+# ============================================================
+
+@app.route('/dashboard/admin')
+def dashboard_admin():
+    if not session.get('usuario') or session.get('rol') != "admin":
         return redirect(url_for('login'))
 
     mensajes = obtener_mensajes()
-    return render_template('admin.html',
+    return render_template('dashboard_admin.html',
                            mensajes=mensajes,
+                           rol=session.get('rol'),
+                           usuario=session.get('usuario'))
+
+@app.route('/dashboard/colaborador')
+def dashboard_colaborador():
+    if not session.get('usuario') or session.get('rol') != "colaborador":
+        return redirect(url_for('login'))
+
+    return render_template('dashboard_colaborador.html',
                            rol=session.get('rol'),
                            usuario=session.get('usuario'))
 

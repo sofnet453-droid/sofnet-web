@@ -18,14 +18,20 @@ if (slides.length > 0) {
 }
 
 
-/* ================= RELOJ ================= */
+/* ================= RELOJ FORMATO 24 HORAS ================= */
 const clock = document.getElementById("clock");
 
 if (clock) {
     function updateClock() {
         const now = new Date();
-        clock.innerText =
-            now.toLocaleDateString() + "  " + now.toLocaleTimeString();
+
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        const date = now.toLocaleDateString("es-ES");
+
+        clock.innerText = `${date}  ${hours}:${minutes}:${seconds}`;
     }
 
     setInterval(updateClock, 1000);
@@ -49,10 +55,11 @@ function decreaseText() {
 
 /* ================= LECTOR DE VOZ ================= */
 function readPage() {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
         const text = document.body.innerText;
         const speech = new SpeechSynthesisUtterance(text);
         speech.lang = "es-ES";
+
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(speech);
     } else {
@@ -83,7 +90,6 @@ const darkToggle = document.getElementById("dark-toggle");
 
 if (darkToggle) {
 
-    // cargar preferencia
     if (localStorage.getItem("modo") === "oscuro") {
         document.body.classList.add("dark-mode");
         darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
@@ -101,3 +107,17 @@ if (darkToggle) {
         }
     });
 }
+
+
+/* ================= ANIMACIÓN SUAVE AL HACER SCROLL ================= */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+document.querySelectorAll(".animate").forEach((el) => {
+    observer.observe(el);
+});

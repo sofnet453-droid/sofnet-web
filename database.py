@@ -1,7 +1,11 @@
 import sqlite3
-import random, string
+import random
+import string
 
+# =====================================================
 # CREAR BASE DE DATOS Y TABLAS
+# =====================================================
+
 def crear_db():
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
@@ -25,7 +29,7 @@ def crear_db():
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         rol TEXT NOT NULL,
-        activo INTEGER DEFAULT 0,  -- 0=inactivo, 1=activo
+        activo INTEGER DEFAULT 0,
         token_confirmacion TEXT
     )
     """)
@@ -42,16 +46,20 @@ def crear_db():
     conn.close()
 
 
-# ---------------- FUNCIONES ----------------
+# =====================================================
+# FUNCIONES
+# =====================================================
 
 # GUARDAR MENSAJE
 def guardar_mensaje(nombre, email, mensaje):
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
+
     cursor.execute("""
         INSERT INTO contactos(nombre, email, mensaje)
         VALUES (?, ?, ?)
     """, (nombre, email, mensaje))
+
     conn.commit()
     conn.close()
 
@@ -60,8 +68,10 @@ def guardar_mensaje(nombre, email, mensaje):
 def obtener_mensajes():
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
+
     cursor.execute("SELECT * FROM contactos ORDER BY fecha DESC")
     datos = cursor.fetchall()
+
     conn.close()
     return datos
 
@@ -75,16 +85,21 @@ def generar_token(length=32):
 def registrar_usuario(username, email, password, rol="colaborador"):
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
+
     token = generar_token()
+
     try:
         cursor.execute("""
             INSERT INTO usuarios (username, email, password, rol, activo, token_confirmacion)
             VALUES (?, ?, ?, ?, 0, ?)
         """, (username, email, password, rol, token))
+
         conn.commit()
+
     except sqlite3.IntegrityError:
         conn.close()
         return None, None
+
     conn.close()
     return token, email
 
@@ -93,19 +108,28 @@ def registrar_usuario(username, email, password, rol="colaborador"):
 def activar_usuario(token):
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
-    cursor.execute("UPDATE usuarios SET activo=1, token_confirmacion=NULL WHERE token_confirmacion=?", (token,))
+
+    cursor.execute("""
+        UPDATE usuarios
+        SET activo=1, token_confirmacion=NULL
+        WHERE token_confirmacion=?
+    """, (token,))
+
     conn.commit()
     conn.close()
 
 
-# VALIDAR LOGIN ACTIVOS
+# VALIDAR LOGIN (SOLO ACTIVOS)
 def validar_usuario(username, password):
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
+
     cursor.execute("""
         SELECT * FROM usuarios
         WHERE username=? AND password=? AND activo=1
     """, (username, password))
+
     usuario = cursor.fetchone()
     conn.close()
+
     return usuario
