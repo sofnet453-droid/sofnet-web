@@ -353,3 +353,133 @@ section{
 .whatsapp:hover{
     transform: scale(1.1);
 }
+/* =====================================================
+   FIX PANEL ACCESIBILIDAD (A+ A- AUDIO)
+===================================================== */
+
+.accesibilidad{
+    position: fixed;
+    top: 110px;
+    left: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 6000;
+}
+
+.accesibilidad button{
+    background: #0f2027;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.accesibilidad button:hover{
+    background: #38ada9;
+}
+
+.dark-mode .accesibilidad button{
+    background:#1a2430;
+    color:white;
+}
+
+
+/* =====================================================
+   FIX FORMULARIO CONTACTO (EL QUE MARCASTE EN ROJO)
+===================================================== */
+
+.contacto{
+    padding: 100px 20px;
+    background: #f4f7fa;
+    text-align: center;
+}
+
+.dark-mode .contacto{
+    background:#121a23;
+}
+
+.formulario{
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.formulario input,
+.formulario textarea{
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+
+.formulario textarea{
+    grid-column: span 2;
+    resize: vertical;
+    min-height: 150px;
+}
+
+.formulario button{
+    grid-column: span 2;
+    padding: 14px;
+    border:none;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#38ada9,#0a3d62);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.formulario button:hover{
+    transform: translateY(-2px);
+}
+
+/* DARK MODE CONTACTO */
+
+.dark-mode .formulario input,
+.dark-mode .formulario textarea{
+    background:#1a2430;
+    border:1px solid #2b3948;
+    color:white;
+}
+
+
+/* =====================================================
+   RESPONSIVE CONTACTO
+===================================================== */
+
+@media(max-width:700px){
+    .formulario{
+        grid-template-columns:1fr;
+    }
+
+    .formulario textarea,
+    .formulario button{
+        grid-column: span 1;
+    }
+}
+
+
+/* =====================================================
+   FIX NAVBAR LOGO TAMAÑO
+===================================================== */
+
+.logo-img{
+    height: 65px;
+}
+
+
+/* =====================================================
+   ASEGURAR DARK MODE GLOBAL
+===================================================== */
+
+.dark-mode section{
+    background: transparent;
+}
