@@ -20,6 +20,12 @@ body{
     transition: background 0.4s ease, color 0.4s ease;
 }
 
+/* FIX GENERAL SUPERPOSICIONES */
+section{
+    position: relative;
+    z-index: 1;
+}
+
 
 /* =====================================================
    NAVBAR
@@ -293,98 +299,171 @@ body{
 
 
 /* =====================================================
-   BARRA ACCESIBILIDAD
+   LOGIN MODERNO (AGREGADO)
 ===================================================== */
 
-.accesibilidad{
-    position: fixed;
-    top: 100px;
-    left: 20px;
-    display: flex;
-    gap: 10px;
-    background: rgba(0,0,0,0.65);
-    padding: 10px 15px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+.login{
+    min-height: calc(100vh - 120px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 }
 
-.accesibilidad button{
-    background: #38ada9;
-    border: none;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+.login h2{
+    color:white;
+    margin-bottom:20px;
 }
 
-.accesibilidad button:hover{
-    transform: scale(1.1);
-    background: #4dd0c8;
+.login form{
+    width:100%;
+    max-width:380px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    border-radius:14px;
+    padding:30px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.3);
+}
+
+.login input{
+    width:100%;
+    padding:12px;
+    margin-bottom:14px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.15);
+    color:white;
+}
+
+.login input::placeholder{
+    color:#ddd;
+}
+
+.login button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,#38ada9,#0a3d62);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login button:hover{
+    transform:translateY(-2px);
+}
+
+.login p{
+    color:white;
+    margin-top:15px;
+}
+
+.login a{
+    color:#4dd0c8;
 }
 
 
 /* =====================================================
-   WHATSAPP FLOTANTE
-===================================================== */
-
-.whatsapp{
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 60px;
-    height: 60px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-    z-index: 999;
-    transition: 0.3s ease;
-}
-
-.whatsapp:hover{
-    transform: scale(1.15);
-}
-
-.whatsapp i{
-    line-height: 1;
-}
-
-
-/* =====================================================
-   RESPONSIVE
+   RESPONSIVE PRO MEJORADO
 ===================================================== */
 
 @media(max-width: 900px){
 
     .navbar{
         padding: 15px 20px;
+        flex-wrap: wrap;
     }
 
     #nav{
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 15px;
+        position:absolute;
+        top:90px;
+        left:0;
+        width:100%;
+        background:white;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.1);
     }
 
     #nav.active{
-        display: flex;
+        display:flex;
+    }
+
+    #nav a{
+        padding:12px 0;
+        border-bottom:1px solid #eee;
     }
 
     .menu-toggle{
-        display: block;
+        display:block;
+    }
+
+    .btn-primary,
+    .btn-outline{
+        padding:8px 14px;
+        font-size:14px;
     }
 
     .hero h1{
-        font-size: 34px;
+        font-size:34px;
     }
 
+}
+
+
+/* =====================================================
+   AGREGADOS PARA FUNCIONAR CON TU JS
+===================================================== */
+
+/* CARRUSEL */
+
+.slide{
+    opacity:0;
+    transition:opacity .6s ease-in-out;
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.slide.active{
+    opacity:1;
+    position:relative;
+}
+
+
+/* ANIMACIONES SCROLL */
+
+.animate{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .8s ease;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* DARK MODE MENU RESPONSIVE */
+
+.dark-mode #nav{
+    background:#0b1118;
+}
+
+.dark-mode #nav a{
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+
+/* RELOJ EN DARK MODE */
+
+.dark-mode .clock{
+    color:#4dd0c8;
 }
