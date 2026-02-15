@@ -2,13 +2,7 @@
 
 {% block content %}
 
-<section class='hero'>
-    <h1>Especialistas en Software & Hardware</h1>
-    <p>Mantenimiento, reparación y soluciones tecnológicas profesionales</p>
-    <a href="/contacto"><button>Contactanos</button></a>
-</section>
-
-<section class="carousel-section">
+<section class="carousel-section animate">
     <div class="carousel">
         <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
         <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
@@ -17,11 +11,11 @@
     </div>
 </section>
 
-<div id="clock"></div>
+<div id="clock" class="clock animate"></div>
 
-<section class='servicios'>
+<section class="servicios animate">
     <h2>Nuestros Servicios</h2>
-    <div class='cards'>
+    <div class="cards">
         <div class="card">Mantenimiento de PCs</div>
         <div class="card">Instalación de Software</div>
         <div class="card">Redes & Soporte Técnico</div>
