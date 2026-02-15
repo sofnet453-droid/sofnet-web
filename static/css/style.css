@@ -13,6 +13,12 @@ html, body{
     font-family: sans-serif;
 }
 
+img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* =====================================================
    NAVBAR MODERNA EMPRESARIAL
 ===================================================== */
@@ -123,12 +129,57 @@ html, body{
     margin-top: 30px;
 }
 
-/* Si usas imagen dentro del hero */
+/* =====================================================
+   CARRUSEL FIX DEFINITIVO
+===================================================== */
 
-.hero img{
+.carousel-section{
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel{
+    width: 100%;
     max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slide{
+    width: 100%;
     height: auto;
+    display: none;
+    object-fit: cover;
+}
+
+.slide.active{
     display: block;
+}
+
+/* =====================================================
+   SERVICIOS
+===================================================== */
+
+.servicios{
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.card{
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    font-weight: 600;
+    min-width: 250px;
 }
 
 /* =====================================================
@@ -176,8 +227,6 @@ html, body{
     padding-top: 20px;
     text-align: center;
 }
-
-/* MAPA */
 
 #map{
     width: 100%;
