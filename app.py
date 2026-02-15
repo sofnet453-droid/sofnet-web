@@ -1,5 +1,7 @@
 import os
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_dance.contrib.google import make_google_blueprint, google
 from database import crear_db, guardar_mensaje, obtener_mensajes, validar_usuario, registrar_usuario, activar_usuario
 import smtplib
 from email.message import EmailMessage
@@ -10,30 +12,35 @@ crear_db()
 app = Flask(__name__)
 app.secret_key = "sofnet_secret_key"
 
+# ---------------- GOOGLE OAUTH ----------------
+
+google_bp = make_google_blueprint(
+    client_id=os.environ.get("GOOGLE_CLIENT_ID"),
+    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
+    scope=["profile", "email"]
+)
+
+app.register_blueprint(google_bp, url_prefix="/login")
 
 # -------- INICIO --------
 @app.route('/')
 def inicio():
     return render_template('index.html')
 
-
 # -------- SERVICIOS --------
 @app.route('/servicios')
 def servicios():
     return render_template('servicios.html')
-
 
 # -------- NOSOTROS --------
 @app.route('/nosotros')
 def nosotros():
     return render_template('nosotros.html')
 
-
 # -------- CONTACTO --------
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
-
 
 # -------- LOGIN GENERAL --------
 @app.route('/login', methods=['GET', 'POST'])
@@ -46,7 +53,7 @@ def login():
 
         if usuario:
             session['usuario'] = usuario[1]
-            session['rol'] = usuario[4]  # rol
+            session['rol'] = usuario[4]
             flash("¡Bienvenido!")
             return redirect(url_for('admin'))
         else:
@@ -54,13 +61,52 @@ def login():
 
     return render_template('login.html')
 
+# -------- LOGIN CON GOOGLE --------
+@app.route("/login/google")
+def login_google():
+
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+
+    resp = google.get("/oauth2/v2/userinfo")
+
+    if not resp.ok:
+        flash("Error al obtener datos de Google")
+        return redirect(url_for("login"))
+
+    info = resp.json()
+    email = info["email"]
+    username = info["name"]
+
+    conn = sqlite3.connect("sofnet.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
+    usuario = cursor.fetchone()
+
+    if not usuario:
+        cursor.execute("""
+            INSERT INTO usuarios (username, password, rol, email, confirmado)
+            VALUES (?, ?, ?, ?, ?)
+        """, (username, "google_auth", "colaborador", email, 1))
+        conn.commit()
+
+        cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
+        usuario = cursor.fetchone()
+
+    conn.close()
+
+    session['usuario'] = usuario[1]
+    session['rol'] = usuario[4]
+
+    flash("Sesión iniciada con Google")
+    return redirect(url_for("admin"))
 
 # -------- LOGOUT --------
 @app.route('/logout')
 def logout():
     session.clear()
     return render_template('logout.html')
-
 
 # -------- REGISTRO --------
 @app.route('/registro', methods=['GET', 'POST'])
@@ -80,7 +126,6 @@ def registro():
             flash("El usuario o correo ya existe")
             return redirect(url_for('registro'))
 
-        # Enviar email de confirmación
         msg = EmailMessage()
         msg['Subject'] = 'Confirma tu cuenta'
         msg['From'] = 'tucorreo@gmail.com'
@@ -101,14 +146,12 @@ def registro():
 
     return render_template('registro.html')
 
-
 # -------- CONFIRMAR CORREO --------
 @app.route('/confirmar/<token>')
 def confirmar(token):
     activar_usuario(token)
     flash("Cuenta activada correctamente. Ahora puedes iniciar sesión")
     return redirect(url_for('login'))
-
 
 # -------- PANEL ADMIN / COLABORADOR --------
 @app.route('/admin')
@@ -122,7 +165,6 @@ def admin():
                            rol=session.get('rol'),
                            usuario=session.get('usuario'))
 
-
 # -------- GUARDAR MENSAJE --------
 @app.route('/enviar', methods=['POST'])
 def enviar():
@@ -133,7 +175,6 @@ def enviar():
     guardar_mensaje(nombre, email, mensaje)
     flash("Mensaje enviado correctamente")
     return redirect(url_for('contacto'))
-
 
 # -------- PUERTO PARA RENDER --------
 if __name__ == "__main__":

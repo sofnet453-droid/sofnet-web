@@ -1,9 +1,3 @@
-{% extends "base.html" %}
-
-{% block title %}Login{% endblock %}
-
-{% block content %}
-
 <section class="login">
     <h2>Iniciar sesión</h2>
 
@@ -21,17 +15,13 @@
         <button type="submit">Entrar</button>
     </form>
 
+    <hr style="margin:20px 0;">
+
+    <a href="{{ url_for('login_google') }}">
+        <button style="background:#4285F4; color:white; border:none; padding:10px; width:100%; cursor:pointer;">
+            Iniciar sesión con Google
+        </button>
+    </a>
+
     <p>¿No tienes cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a></p>
 </section>
-
-<!-- Audio de bienvenida -->
-<audio id="audio_welcome" src="{{ url_for('static', filename='welcome.mp3') }}"></audio>
-
-<script>
-window.onload = function() {
-    var audio = document.getElementById("audio_welcome");
-    if(audio) audio.play().catch(e => console.log("Autoplay bloqueado, click para escuchar"));
-}
-</script>
-
-{% endblock %}

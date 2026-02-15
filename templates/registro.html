@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head><title>Registro</title></head>
+<head>
+    <title>Registro</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        form { margin: 20px auto; width: 300px; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+        button { padding: 10px; width: 100%; cursor: pointer; }
+        .google-btn {
+            background: #4285F4;
+            color: white;
+            border: none;
+            margin-top: 10px;
+        }
+        .google-btn:hover {
+            background: #357ae8;
+        }
+    </style>
+</head>
 <body>
+
 <h2>Registro de usuario</h2>
+
 <form method="POST">
-  <input type="text" name="username" placeholder="Usuario" required><br>
-  <input type="email" name="email" placeholder="Correo electrónico" required><br>
-  <input type="password" name="password" placeholder="Contraseña" required><br>
-  <input type="password" name="confirmar" placeholder="Confirmar contraseña" required><br>
+  <input type="text" name="username" placeholder="Usuario" required>
+  <input type="email" name="email" placeholder="Correo electrónico" required>
+  <input type="password" name="password" placeholder="Contraseña" required>
+  <input type="password" name="confirmar" placeholder="Confirmar contraseña" required>
   <button type="submit">Registrarse</button>
 </form>
+
+<hr style="width:300px; margin:20px auto;">
+
+<a href="{{ url_for('login_google') }}">
+    <button class="google-btn">
+        Registrarse con Google
+    </button>
+</a>
+
+<br><br>
 <a href="{{ url_for('login') }}">Volver al login</a>
+
 </body>
 </html>
