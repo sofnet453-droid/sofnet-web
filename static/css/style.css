@@ -20,7 +20,6 @@ body{
     transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* FIX GENERAL SUPERPOSICIONES */
 section{
     position: relative;
     z-index: 1;
@@ -43,61 +42,41 @@ section{
     box-shadow: 0 5px 25px rgba(0,0,0,0.05);
 }
 
-.logo{
-    display: flex;
-    align-items: center;
-}
+.logo{ display:flex; align-items:center; }
 
 .logo-img{
-    height: 75px;
-    width: auto;
-    object-fit: contain;
+    height:75px;
+    width:auto;
+    object-fit:contain;
 }
 
-#nav{
-    display: flex;
-    gap: 25px;
-}
+#nav{ display:flex; gap:25px; }
 
 #nav a{
-    text-decoration: none;
-    font-weight: 500;
-    color: #1e2a38;
-    position: relative;
+    text-decoration:none;
+    font-weight:500;
+    color:#1e2a38;
+    position:relative;
 }
 
 #nav a::after{
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: #38ada9;
-    transition: 0.3s;
+    content:"";
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:0%;
+    height:2px;
+    background:#38ada9;
+    transition:.3s;
 }
 
-#nav a:hover::after{
-    width: 100%;
-}
+#nav a:hover::after{ width:100%; }
 
-.nav-actions{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+.nav-actions{ display:flex; align-items:center; gap:15px; }
 
-.dark-toggle{
-    cursor: pointer;
-    font-size: 20px;
-    color: #38ada9;
-}
+.dark-toggle{ cursor:pointer; font-size:20px; color:#38ada9; }
 
-.menu-toggle{
-    display: none;
-    cursor: pointer;
-    font-size: 22px;
-}
+.menu-toggle{ display:none; cursor:pointer; font-size:22px; }
 
 /* =====================================================
    BOTONES
@@ -105,34 +84,34 @@ section{
 
 .btn-primary{
     background: linear-gradient(135deg,#0a3d62,#38ada9);
-    color: white;
-    padding: 10px 22px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    color:white;
+    padding:10px 22px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
 }
 
 .btn-primary:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .btn-outline{
-    border: 2px solid #38ada9;
-    padding: 10px 22px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #38ada9;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    background: transparent;
+    border:2px solid #38ada9;
+    padding:10px 22px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#38ada9;
+    font-weight:600;
+    transition:.3s;
+    background:transparent;
 }
 
 .btn-outline:hover{
-    background: #38ada9;
-    color: white;
-    box-shadow: 0 8px 20px rgba(56,173,169,0.3);
+    background:#38ada9;
+    color:white;
+    box-shadow:0 8px 20px rgba(56,173,169,0.3);
 }
 
 /* =====================================================
@@ -141,34 +120,24 @@ section{
 
 .hero{
     background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color: white;
-    padding: 140px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    color:white;
+    padding:140px 20px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.hero-content{
-    max-width: 850px;
-    margin: auto;
-}
+.hero-content{ max-width:850px; margin:auto; }
 
-.hero h1{
-    font-size: 52px;
-    margin-bottom: 20px;
-}
+.hero h1{ font-size:52px; margin-bottom:20px; }
 
-.hero p{
-    font-size: 18px;
-    margin-bottom: 30px;
-    opacity: 0.9;
-}
+.hero p{ font-size:18px; margin-bottom:30px; opacity:.9; }
 
 .hero-buttons{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
 /* =====================================================
@@ -176,10 +145,10 @@ section{
 ===================================================== */
 
 .clock{
-    text-align: center;
-    font-size: 24px;
-    margin: 60px 0;
-    font-weight: 600;
+    text-align:center;
+    font-size:24px;
+    margin:60px 0;
+    font-weight:600;
 }
 
 /* =====================================================
@@ -187,108 +156,35 @@ section{
 ===================================================== */
 
 .servicios{
-    padding: 100px 20px;
-    background: #f4f7fa;
-    text-align: center;
+    padding:100px 20px;
+    background:#f4f7fa;
+    text-align:center;
 }
 
 .servicios h2{
-    font-size: 36px;
-    margin-bottom: 60px;
+    font-size:36px;
+    margin-bottom:60px;
 }
 
 .cards{
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
 }
 
 .card{
-    background: white;
-    padding: 50px 30px;
-    border-radius: 16px;
-    width: 300px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-    transition: 0.4s;
+    background:white;
+    padding:50px 30px;
+    border-radius:16px;
+    width:300px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.06);
+    transition:.4s;
 }
 
 .card:hover{
-    transform: translateY(-10px);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.1);
-}
-
-/* =====================================================
-   CONTACTO (FIX REAL DEL PROBLEMA ROJO)
-===================================================== */
-
-.contacto{
-    padding: 90px 20px;
-    background: #f4f7fa;
-    text-align: center;
-}
-
-.dark-mode .contacto{
-    background:#121a23;
-}
-
-.formulario{
-    max-width: 900px;
-    margin: 50px auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.formulario input,
-.formulario textarea{
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-}
-
-.dark-mode .formulario input,
-.dark-mode .formulario textarea{
-    background:#1a2430;
-    border:1px solid #2b3948;
-    color:white;
-}
-
-.formulario textarea{
-    grid-column: span 2;
-    min-height: 140px;
-    resize: vertical;
-}
-
-.formulario button{
-    grid-column: span 2;
-    padding: 14px;
-    border:none;
-    border-radius: 12px;
-    background: linear-gradient(135deg,#38ada9,#0a3d62);
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.formulario button:hover{
-    transform: translateY(-2px);
-}
-
-/* RESPONSIVE CONTACTO */
-@media(max-width:700px){
-    .formulario{
-        grid-template-columns:1fr;
-    }
-
-    .formulario textarea,
-    .formulario button{
-        grid-column: span 1;
-    }
+    transform:translateY(-10px);
+    box-shadow:0 25px 60px rgba(0,0,0,0.1);
 }
 
 /* =====================================================
@@ -296,190 +192,161 @@ section{
 ===================================================== */
 
 .footer{
-    background: #0f2027;
-    color: white;
-    padding: 70px 40px 20px;
+    background:#0f2027;
+    color:white;
+    padding:70px 40px 20px;
 }
 
 .footer-container{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 50px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:50px;
 }
 
 .footer-links a{
-    display: block;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: white;
-    opacity: 0.8;
+    display:block;
+    margin-bottom:10px;
+    text-decoration:none;
+    color:white;
+    opacity:.8;
 }
 
 .footer-links a:hover{
-    opacity: 1;
-    color: #38ada9;
+    opacity:1;
+    color:#38ada9;
 }
 
 .footer-bottom{
-    text-align: center;
-    margin-top: 50px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    padding-top: 20px;
+    text-align:center;
+    margin-top:50px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    padding-top:20px;
 }
 
 /* =====================================================
-   WHATSAPP FLOTANTE
+   DARK MODE ORIGINAL
 ===================================================== */
 
-.whatsapp{
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 99999;
-    width: 65px;
-    height: 65px;
-    background: #25D366;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 34px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    transition: transform .25s ease, box-shadow .25s ease;
+.dark-mode{
+    background:#0b1118;
+    color:#eaeaea;
 }
 
-.whatsapp:hover{
-    transform: scale(1.1);
-}
-/* =====================================================
-   FIX PANEL ACCESIBILIDAD (A+ A- AUDIO)
-===================================================== */
-
-.accesibilidad{
-    position: fixed;
-    top: 110px;
-    left: 20px;
-    display: flex;
-    gap: 8px;
-    z-index: 6000;
+.dark-mode .navbar{
+    background:rgba(10,15,20,0.95);
 }
 
-.accesibilidad button{
-    background: #0f2027;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-}
+.dark-mode #nav a{ color:white; }
 
-.accesibilidad button:hover{
-    background: #38ada9;
-}
+.dark-mode .servicios{ background:#121a23; }
 
-.dark-mode .accesibilidad button{
-    background:#1a2430;
-    color:white;
-}
-
+.dark-mode .card{ background:#1a2430; }
 
 /* =====================================================
-   FIX FORMULARIO CONTACTO (EL QUE MARCASTE EN ROJO)
+   RESPONSIVE
 ===================================================== */
 
-.contacto{
-    padding: 100px 20px;
-    background: #f4f7fa;
-    text-align: center;
+@media(max-width:900px){
+
+    .navbar{
+        padding:15px 20px;
+        flex-wrap:wrap;
+    }
+
+    #nav{
+        position:absolute;
+        top:90px;
+        left:0;
+        width:100%;
+        background:white;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    #nav.active{ display:flex; }
+
+    #nav a{
+        padding:12px 0;
+        border-bottom:1px solid #eee;
+    }
+
+    .menu-toggle{ display:block; }
+
+    .hero h1{ font-size:34px; }
 }
 
-.dark-mode .contacto{
-    background:#121a23;
-}
+/* =====================================================
+   🔧 FIX FORMULARIO CONTACTO (IMPORTANTE)
+===================================================== */
 
 .formulario{
-    max-width: 900px;
-    margin: 40px auto 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    max-width:900px;
+    margin:60px auto;
+    padding:40px;
+    background:white;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.08);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.formulario textarea{
+    grid-column:span 2;
+    min-height:140px;
 }
 
 .formulario input,
 .formulario textarea{
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-}
-
-.formulario textarea{
-    grid-column: span 2;
-    resize: vertical;
-    min-height: 150px;
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:15px;
 }
 
 .formulario button{
-    grid-column: span 2;
-    padding: 14px;
+    grid-column:span 2;
+    padding:14px;
     border:none;
-    border-radius: 12px;
-    background: linear-gradient(135deg,#38ada9,#0a3d62);
+    border-radius:12px;
+    background:linear-gradient(135deg,#38ada9,#0a3d62);
     color:white;
     font-weight:600;
     cursor:pointer;
-    transition:.3s;
 }
 
-.formulario button:hover{
-    transform: translateY(-2px);
+@media(max-width:700px){
+    .formulario{ grid-template-columns:1fr; }
+    .formulario textarea,
+    .formulario button{ grid-column:span 1; }
 }
 
-/* DARK MODE CONTACTO */
+/* =====================================================
+   🌙 DARK MODE GLOBAL FIX (NUEVO)
+===================================================== */
 
-.dark-mode .formulario input,
-.dark-mode .formulario textarea{
+.dark-mode section{ background:#0b1118; }
+
+.dark-mode input,
+.dark-mode textarea{
     background:#1a2430;
     border:1px solid #2b3948;
     color:white;
 }
 
-
-/* =====================================================
-   RESPONSIVE CONTACTO
-===================================================== */
-
-@media(max-width:700px){
-    .formulario{
-        grid-template-columns:1fr;
-    }
-
-    .formulario textarea,
-    .formulario button{
-        grid-column: span 1;
-    }
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder{
+    color:#9fb3c8;
 }
 
-
-/* =====================================================
-   FIX NAVBAR LOGO TAMAÑO
-===================================================== */
-
-.logo-img{
-    height: 65px;
+.dark-mode .formulario{
+    background:#1a2430;
 }
 
-
-/* =====================================================
-   ASEGURAR DARK MODE GLOBAL
-===================================================== */
-
-.dark-mode section{
-    background: transparent;
+.dark-mode .footer{
+    background:#05090d;
 }
