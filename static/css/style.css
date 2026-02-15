@@ -38,8 +38,13 @@ body{
     box-shadow: 0 5px 25px rgba(0,0,0,0.05);
 }
 
+.logo{
+    display: flex;
+    align-items: center;
+}
+
 .logo-img{
-    height: 55px;
+    height: 75px;
     width: auto;
     object-fit: contain;
 }
@@ -69,6 +74,18 @@ body{
 
 #nav a:hover::after{
     width: 100%;
+}
+
+.nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dark-toggle{
+    cursor: pointer;
+    font-size: 20px;
+    color: #38ada9;
 }
 
 .menu-toggle{
@@ -279,9 +296,9 @@ body{
    BARRA ACCESIBILIDAD
 ===================================================== */
 
-.accessibility-bar{
+.accesibilidad{
     position: fixed;
-    top: 90px;
+    top: 100px;
     left: 20px;
     display: flex;
     gap: 10px;
@@ -292,7 +309,7 @@ body{
     z-index: 1000;
 }
 
-.accessibility-bar button{
+.accesibilidad button{
     background: #38ada9;
     border: none;
     color: white;
@@ -303,7 +320,7 @@ body{
     transition: 0.3s;
 }
 
-.accessibility-bar button:hover{
+.accesibilidad button:hover{
     transform: scale(1.1);
     background: #4dd0c8;
 }
@@ -313,22 +330,31 @@ body{
    WHATSAPP FLOTANTE
 ===================================================== */
 
-.whatsapp-float{
+.whatsapp{
     position: fixed;
     bottom: 25px;
     right: 25px;
+    width: 60px;
+    height: 60px;
     background: #25D366;
-    color: white;
-    font-size: 28px;
-    padding: 18px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    text-decoration: none;
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     z-index: 999;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
-.whatsapp-float:hover{
+.whatsapp:hover{
     transform: scale(1.15);
+}
+
+.whatsapp i{
+    line-height: 1;
 }
 
 
