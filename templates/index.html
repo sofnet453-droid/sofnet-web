@@ -2,23 +2,28 @@
 
 {% block content %}
 
-<section class="carousel-section animate">
-    <div class="carousel">
-        <img src="{{ url_for('static', filename='img/img1.jpeg') }}" class="slide active">
-        <img src="{{ url_for('static', filename='img/img2.jpeg') }}" class="slide">
-        <img src="{{ url_for('static', filename='img/img3.jpeg') }}" class="slide">
-        <img src="{{ url_for('static', filename='img/img4.jpeg') }}" class="slide">
-    </div>
-</section>
+<div id="clock" class="clock"></div>
 
-<div id="clock" class="clock animate"></div>
-
-<section class="servicios animate">
+<section class="servicios">
     <h2>Nuestros Servicios</h2>
     <div class="cards">
-        <div class="card">Mantenimiento de PCs</div>
-        <div class="card">Instalación de Software</div>
-        <div class="card">Redes & Soporte Técnico</div>
+        <div class="card">
+            <i class="fa-solid fa-computer"></i>
+            <h3>Mantenimiento de PCs</h3>
+            <p>Optimización, limpieza y mejora de rendimiento profesional.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-code"></i>
+            <h3>Instalación de Software</h3>
+            <p>Implementación segura de sistemas y herramientas empresariales.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-network-wired"></i>
+            <h3>Redes & Soporte Técnico</h3>
+            <p>Infraestructura tecnológica confiable para tu empresa.</p>
+        </div>
     </div>
 </section>
 

@@ -10,14 +10,7 @@ html, body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    font-family: sans-serif;
-    background-color: #0f2027;
-}
-
-img{
-    max-width: 100%;
-    height: auto;
-    display: block;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* =====================================================
@@ -36,23 +29,22 @@ img{
     z-index: 1000;
 }
 
-.nav-center{
-    display: flex;
-    align-items: center;
+.logo-img{
+    height: 45px;
 }
 
-.nav-center a{
-    color: #0f2027;
+#nav a{
     margin: 0 15px;
-    font-weight: 600;
     text-decoration: none;
+    font-weight: 500;
+    color: #0f2027;
 }
 
-.nav-center a:hover{
+#nav a:hover{
     color: #38ada9;
 }
 
-.nav-right{
+.nav-actions{
     display: flex;
     align-items: center;
     gap: 15px;
@@ -65,10 +57,10 @@ img{
 .btn-primary{
     background: linear-gradient(135deg, #0a3d62, #38ada9);
     color: white;
-    padding: 10px 20px;
+    padding: 8px 18px;
     border-radius: 8px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     transition: 0.3s ease;
 }
 
@@ -83,7 +75,7 @@ img{
     border-radius: 8px;
     text-decoration: none;
     color: #0a3d62;
-    font-weight: bold;
+    font-weight: 600;
     transition: 0.3s ease;
 }
 
@@ -93,34 +85,36 @@ img{
 }
 
 /* =====================================================
-   HERO / CARRUSEL CORREGIDO
+   HERO (del base.html)
 ===================================================== */
 
-.carousel-section{
-    width: 100%;
-    height: 90vh;
-    overflow: hidden;
-    background-color: #0f2027;
+.hero{
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.hero-content{
+    max-width: 800px;
+    margin: auto;
+}
+
+.hero h1{
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons{
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.carousel{
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.slide{
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* mantiene proporción */
-    display: none;
-}
-
-.slide.active{
-    display: block;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 /* =====================================================
@@ -129,9 +123,9 @@ img{
 
 .clock{
     text-align: center;
-    font-size: 28px;
-    color: white;
-    margin: 40px 0;
+    font-size: 26px;
+    margin: 50px 0;
+    font-weight: 600;
 }
 
 /* =====================================================
@@ -140,12 +134,13 @@ img{
 
 .servicios{
     padding: 80px 20px;
+    background: #f5f7fa;
     text-align: center;
-    background: white;
 }
 
 .servicios h2{
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    font-size: 32px;
 }
 
 .cards{
@@ -156,12 +151,67 @@ img{
 }
 
 .card{
-    background: #f5f7fa;
-    padding: 30px;
+    background: white;
+    padding: 40px 25px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    font-weight: 600;
-    min-width: 250px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    width: 280px;
+    transition: 0.3s ease;
+}
+
+.card i{
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #38ada9;
+}
+
+.card h3{
+    margin-bottom: 15px;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+    background: #0f2027;
+    color: white;
+    padding: 60px 40px 20px;
+}
+
+.footer-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-links a{
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.footer-links a:hover{
+    color: #38ada9;
+}
+
+.social-icons a{
+    margin-right: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.footer-bottom{
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 20px;
 }
 
 /* =====================================================
@@ -172,18 +222,15 @@ img{
 
     .navbar{
         flex-direction: column;
-        align-items: flex-start;
         padding: 15px 20px;
     }
 
-    .nav-center{
-        flex-direction: column;
-        width: 100%;
+    #nav{
         margin-top: 10px;
     }
 
-    .carousel-section{
-        height: 60vh;
+    .hero h1{
+        font-size: 32px;
     }
 
 }
