@@ -383,24 +383,50 @@ section{
 
 
 /* ================================
-   FIX BOTONES AUDIO / ACCESIBILIDAD
+   BOTONES ACCESIBILIDAD BIEN DISEÑADOS
 ================================ */
 
 .accesibilidad{
     position: fixed !important;
-    top: 110px;
+    top: 120px;
     left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     z-index: 999999 !important;
 }
 
+/* botones */
 .accesibilidad button{
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    border: none;
+    background: #0b2239;
+    color: white;
+    font-size: 18px;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:6px;
-    font-size:16px;
+    cursor:pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: all .25s ease;
 }
 
+/* hover bonito */
+.accesibilidad button:hover{
+    background: #1a3d63;
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* iconos */
 .accesibilidad button i{
-    font-size:18px;
+    font-size: 18px;
+    pointer-events:none;
+}
+
+/* modo oscuro */
+body.dark-mode .accesibilidad button{
+    background: #eaf2fb;
+    color: #0b2239;
 }
