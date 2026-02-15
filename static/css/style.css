@@ -430,3 +430,37 @@ body.dark-mode .accesibilidad button{
     background: #eaf2fb;
     color: #0b2239;
 }
+
+/* ================================
+   FIX MENU HAMBURGUESA DARK MODE
+================================ */
+
+/* fondo del menu desplegado en movil */
+body.dark-mode .nav-links,
+body.dark-mode nav ul,
+body.dark-mode .menu,
+body.dark-mode .navbar-menu{
+    background-color: #071a2d !important;
+}
+
+/* color del texto */
+body.dark-mode .nav-links li a,
+body.dark-mode nav ul li a,
+body.dark-mode .menu a,
+body.dark-mode .navbar-menu a{
+    color: #ffffff !important;
+}
+
+/* hover visible */
+body.dark-mode .nav-links li a:hover,
+body.dark-mode nav ul li a:hover,
+body.dark-mode .menu a:hover,
+body.dark-mode .navbar-menu a:hover{
+    color: #00c3ff !important;
+}
+
+/* separadores del menu */
+body.dark-mode .nav-links li,
+body.dark-mode nav ul li{
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
