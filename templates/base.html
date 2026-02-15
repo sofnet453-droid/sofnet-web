@@ -13,8 +13,11 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
 <!-- ================= NAVBAR ================= -->
@@ -35,7 +38,8 @@
 
     <div class="nav-actions">
 
-        <div class="dark-toggle" id="dark-toggle">
+        <!-- Dark Mode -->
+        <div class="dark-toggle" id="dark-toggle" style="cursor:pointer;font-size:18px;">
             <i class="fa-solid fa-moon"></i>
         </div>
 
@@ -72,11 +76,13 @@
 {% endif %}
 
 
-<!-- ================= ACCESIBILIDAD ================= -->
-<div class="accesibilidad">
+<!-- ================= BARRA ACCESIBILIDAD MEJORADA ================= -->
+<div class="accessibility-bar">
     <button onclick="increaseText()">A+</button>
     <button onclick="decreaseText()">A-</button>
-    <button onclick="readPage()">🔊</button>
+    <button onclick="readPage()">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
 </div>
 
 
@@ -84,13 +90,15 @@
 {% block content %}{% endblock %}
 
 
-<!-- ================= WHATSAPP FLOAT ================= -->
-<a href="https://wa.me/593984098439" class="whatsapp" target="_blank">
+<!-- ================= WHATSAPP FLOTANTE ================= -->
+<a href="https://wa.me/593984098439"
+   class="whatsapp-float"
+   target="_blank">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
 
-<!-- ================= FOOTER PROFESIONAL ================= -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
 
     <div class="footer-container">
