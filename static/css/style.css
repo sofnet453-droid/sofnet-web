@@ -432,35 +432,21 @@ body.dark-mode .accesibilidad button{
 }
 
 /* ================================
-   FIX MENU HAMBURGUESA DARK MODE
+   FIX MENU HAMBURGUESA DARK MODE (CORREGIDO)
 ================================ */
 
-/* fondo del menu desplegado en movil */
-body.dark-mode .nav-links,
-body.dark-mode nav ul,
-body.dark-mode .menu,
-body.dark-mode .navbar-menu{
-    background-color: #071a2d !important;
-}
+/* fondo del menu movil en modo oscuro */
+@media(max-width:900px){
+    body.dark-mode #nav{
+        background:#071a2d !important;
+    }
 
-/* color del texto */
-body.dark-mode .nav-links li a,
-body.dark-mode nav ul li a,
-body.dark-mode .menu a,
-body.dark-mode .navbar-menu a{
-    color: #ffffff !important;
-}
+    body.dark-mode #nav a{
+        color:#ffffff !important;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+    }
 
-/* hover visible */
-body.dark-mode .nav-links li a:hover,
-body.dark-mode nav ul li a:hover,
-body.dark-mode .menu a:hover,
-body.dark-mode .navbar-menu a:hover{
-    color: #00c3ff !important;
-}
-
-/* separadores del menu */
-body.dark-mode .nav-links li,
-body.dark-mode nav ul li{
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    body.dark-mode #nav a:hover{
+        color:#00c3ff !important;
+    }
 }
