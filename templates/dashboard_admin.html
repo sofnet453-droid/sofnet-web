@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Admin</title>
-</head>
-<body>
-    <h1>Panel Administrador</h1>
-    <p>Bienvenido {{ usuario }}</p>
+{% extends "base_admin.html" %}
 
-    <h2>Mensajes</h2>
-    {% for mensaje in mensajes %}
-        <p><strong>{{ mensaje.nombre }}</strong>: {{ mensaje.mensaje }}</p>
-    {% endfor %}
+{% block content %}
 
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-</body>
-</html>
+<h1>Dashboard Ejecutivo</h1>
+<p>Bienvenido {{ usuario }}</p>
+
+<div class="card">
+    <h3>Total Mensajes</h3>
+    <p>{{ mensajes|length }}</p>
+</div>
+
+<div class="card">
+    <h3>Actividad Reciente</h3>
+    <ul>
+        {% for mensaje in mensajes %}
+            <li>{{ mensaje.nombre }} - {{ mensaje.mensaje }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

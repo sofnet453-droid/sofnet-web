@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel Administrativo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            display: flex;
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1e293b;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background: #334155;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>SOFNET</h2>
+    <a href="{{ url_for('dashboard_admin') }}">📊 Dashboard</a>
+    <a href="#">👥 Usuarios</a>
+    <a href="#">🛡 Roles</a>
+    <a href="#">📩 Mensajes</a>
+    <a href="#">⚙ Configuración</a>
+    <a href="{{ url_for('logout') }}">🚪 Cerrar sesión</a>
+</div>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
