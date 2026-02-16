@@ -1,28 +1,44 @@
 import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from database import crear_db, guardar_mensaje, obtener_mensajes, validar_usuario, registrar_usuario, activar_usuario
+from database import (
+    crear_db,
+    guardar_mensaje,
+    obtener_mensajes,
+    validar_usuario,
+    registrar_usuario,
+    activar_usuario,
+    crear_usuario_admin,
+    obtener_usuarios,
+    cambiar_estado_usuario
+)
 import smtplib
 from email.message import EmailMessage
+from functools import wraps
 
 # Crear base de datos automáticamente
 crear_db()
 
 app = Flask(__name__)
-app.secret_key = "sofnet_secret_key"
+app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
 
 # ============================================================
-# 🔹 GOOGLE OAUTH DESACTIVADO TEMPORALMENTE
+# 🔐 DECORADOR PROFESIONAL PARA PROTEGER RUTAS
 # ============================================================
-# from flask_dance.contrib.google import make_google_blueprint, google
-#
-# google_bp = make_google_blueprint(
-#     client_id=os.environ.get("GOOGLE_CLIENT_ID"),
-#     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
-#     scope=["profile", "email"]
-# )
-#
-# app.register_blueprint(google_bp, url_prefix="/login")
+
+def login_required(rol=None):
+    def decorator(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if not session.get('usuario'):
+                return redirect(url_for('login'))
+
+            if rol and session.get('rol') != rol:
+                return redirect(url_for('login'))
+
+            return f(*args, **kwargs)
+        return wrapped
+    return decorator
 
 # -------- INICIO --------
 @app.route('/')
@@ -105,7 +121,7 @@ def registro():
             flash("Correo de confirmación enviado. Revisa tu bandeja.")
         except Exception as e:
             print("Error enviando correo:", e)
-            flash("No se pudo enviar el correo. Contacta con el administrador.")
+            flash("No se pudo enviar el correo.")
 
         return redirect(url_for('login'))
 
@@ -115,32 +131,71 @@ def registro():
 @app.route('/confirmar/<token>')
 def confirmar(token):
     activar_usuario(token)
-    flash("Cuenta activada correctamente. Ahora puedes iniciar sesión")
+    flash("Cuenta activada correctamente.")
     return redirect(url_for('login'))
 
 # ============================================================
-# 🔐 DASHBOARD SEPARADO POR ROLES
+# 🔐 DASHBOARD ADMIN
 # ============================================================
 
 @app.route('/dashboard/admin')
+@login_required(rol="admin")
 def dashboard_admin():
-    if not session.get('usuario') or session.get('rol') != "admin":
-        return redirect(url_for('login'))
-
     mensajes = obtener_mensajes()
-    return render_template('dashboard_admin.html',
-                           mensajes=mensajes,
-                           rol=session.get('rol'),
-                           usuario=session.get('usuario'))
+    usuarios = obtener_usuarios()
+
+    return render_template(
+        'dashboard_admin.html',
+        mensajes=mensajes,
+        usuarios=usuarios,
+        rol=session.get('rol'),
+        usuario=session.get('usuario')
+    )
+
+# ============================================================
+# 👥 CREAR USUARIO DESDE ADMIN
+# ============================================================
+
+@app.route('/admin/crear_usuario', methods=['POST'])
+@login_required(rol="admin")
+def admin_crear_usuario():
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    rol = request.form['rol']
+
+    creado = crear_usuario_admin(username, email, password, rol)
+
+    if creado:
+        flash("Usuario creado correctamente")
+    else:
+        flash("Error: usuario o correo ya existe")
+
+    return redirect(url_for('dashboard_admin'))
+
+# ============================================================
+# 🔄 ACTIVAR / DESACTIVAR USUARIO
+# ============================================================
+
+@app.route('/admin/cambiar_estado/<int:user_id>/<int:estado>')
+@login_required(rol="admin")
+def admin_cambiar_estado(user_id, estado):
+    cambiar_estado_usuario(user_id, estado)
+    flash("Estado actualizado correctamente")
+    return redirect(url_for('dashboard_admin'))
+
+# ============================================================
+# 👨‍💼 DASHBOARD COLABORADOR
+# ============================================================
 
 @app.route('/dashboard/colaborador')
+@login_required(rol="colaborador")
 def dashboard_colaborador():
-    if not session.get('usuario') or session.get('rol') != "colaborador":
-        return redirect(url_for('login'))
-
-    return render_template('dashboard_colaborador.html',
-                           rol=session.get('rol'),
-                           usuario=session.get('usuario'))
+    return render_template(
+        'dashboard_colaborador.html',
+        rol=session.get('rol'),
+        usuario=session.get('usuario')
+    )
 
 # -------- GUARDAR MENSAJE --------
 @app.route('/enviar', methods=['POST'])
@@ -153,7 +208,7 @@ def enviar():
     flash("Mensaje enviado correctamente")
     return redirect(url_for('contacto'))
 
-# -------- PUERTO PARA RENDER --------
+# -------- PUERTO --------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)

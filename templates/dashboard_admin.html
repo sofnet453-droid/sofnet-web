@@ -2,21 +2,64 @@
 
 {% block content %}
 
-<h1>Dashboard Ejecutivo</h1>
-<p>Bienvenido {{ usuario }}</p>
+<h1>Panel Ejecutivo CEO</h1>
+<p>Administrador: {{ usuario }}</p>
+<p id="reloj"></p>
 
-<div class="card">
-    <h3>Total Mensajes</h3>
-    <p>{{ mensajes|length }}</p>
+<div class="grid">
+
+    <div class="card">
+        <h3>Usuarios</h3>
+        <p>Total: {{ usuarios|length }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Mensajes</h3>
+        <p>Total: {{ mensajes|length }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Productos</h3>
+        <p>Total: {{ productos|length }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Ventas</h3>
+        <p>Total: {{ ventas|length }}</p>
+    </div>
+
 </div>
 
-<div class="card">
-    <h3>Actividad Reciente</h3>
-    <ul>
-        {% for mensaje in mensajes %}
-            <li>{{ mensaje.nombre }} - {{ mensaje.mensaje }}</li>
-        {% endfor %}
-    </ul>
-</div>
+<h2>Usuarios Activos</h2>
+<ul>
+    {% for u in usuarios %}
+        <li>{{ u.username }} - {{ "Activo" if u.activo == 1 else "Inactivo" }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Historial de Movimientos</h2>
+<ul>
+    {% for m in movimientos %}
+        <li>{{ m.usuario }} - {{ m.accion }} - {{ m.fecha }}</li>
+    {% endfor %}
+</ul>
+
+<script>
+function actualizarReloj(){
+    const ahora = new Date();
+    const opciones = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+    };
+    const fecha = ahora.toLocaleDateString();
+    const hora = ahora.toLocaleTimeString([], opciones);
+
+    document.getElementById("reloj").innerHTML = fecha + " " + hora;
+}
+
+setInterval(actualizarReloj, 1000);
+</script>
 
 {% endblock %}

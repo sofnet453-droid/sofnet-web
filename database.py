@@ -22,7 +22,7 @@ def crear_db():
     )
     """)
 
-    # TABLA USUARIOS (ADMIN Y COLABORADORES)
+    # TABLA USUARIOS
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS usuarios(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,7 +45,6 @@ def crear_db():
 
     conn.commit()
     conn.close()
-
 
 # =====================================================
 # FUNCIONES
@@ -83,7 +82,7 @@ def generar_token(length=32):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 
-# REGISTRAR USUARIO
+# REGISTRAR USUARIO DESDE REGISTRO (CON CONFIRMACION)
 def registrar_usuario(username, email, password, rol="colaborador"):
     conn = sqlite3.connect("sofnet.db")
     cursor = conn.cursor()
@@ -136,3 +135,57 @@ def validar_usuario(username, password):
     conn.close()
 
     return usuario
+
+
+# =====================================================
+# 🔐 FUNCIONES NUEVAS PARA ADMIN
+# =====================================================
+
+# CREAR USUARIO DESDE PANEL ADMIN (YA ACTIVO)
+def crear_usuario_admin(username, email, password, rol):
+    conn = sqlite3.connect("sofnet.db")
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("""
+            INSERT INTO usuarios (username, email, password, rol, activo)
+            VALUES (?, ?, ?, ?, 1)
+        """, (username, email, password, rol))
+        conn.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    finally:
+        conn.close()
+
+
+# OBTENER TODOS LOS USUARIOS
+def obtener_usuarios():
+    conn = sqlite3.connect("sofnet.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, username, email, rol, activo
+        FROM usuarios
+        ORDER BY id DESC
+    """)
+    usuarios = cursor.fetchall()
+
+    conn.close()
+    return usuarios
+
+
+# CAMBIAR ESTADO (ACTIVAR / DESACTIVAR)
+def cambiar_estado_usuario(user_id, estado):
+    conn = sqlite3.connect("sofnet.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE usuarios
+        SET activo=?
+        WHERE id=?
+    """, (estado, user_id))
+
+    conn.commit()
+    conn.close()
