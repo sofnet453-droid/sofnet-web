@@ -12,8 +12,6 @@ from database import (
     obtener_usuarios,
     cambiar_estado_usuario
 )
-import smtplib
-from email.message import EmailMessage
 from functools import wraps
 
 # Crear base de datos automáticamente
@@ -23,7 +21,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
 
 # ============================================================
-# 🔐 DECORADOR PROFESIONAL PARA PROTEGER RUTAS
+# 🔐 DECORADOR PARA PROTEGER RUTAS
 # ============================================================
 
 def login_required(rol=None):
@@ -64,8 +62,8 @@ def contacto():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         usuario = validar_usuario(username, password)
 
@@ -89,45 +87,39 @@ def logout():
     session.clear()
     return redirect(url_for('inicio'))
 
-# -------- REGISTRO --------
+# ============================================================
+# -------- REGISTRO (SIN ENVÍO DE CORREO) --------
+# ============================================================
+
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        confirmar = request.form['confirmar']
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirmar = request.form.get('confirmar')
+
+        # Validaciones básicas
+        if not username or not email or not password or not confirmar:
+            flash("Todos los campos son obligatorios")
+            return redirect(url_for('registro'))
 
         if password != confirmar:
             flash("Las contraseñas no coinciden")
             return redirect(url_for('registro'))
 
         token, correo = registrar_usuario(username, email, password)
+
         if not token:
             flash("El usuario o correo ya existe")
             return redirect(url_for('registro'))
 
-        msg = EmailMessage()
-        msg['Subject'] = 'Confirma tu cuenta'
-        msg['From'] = 'tucorreo@gmail.com'
-        msg['To'] = correo
-        link = url_for('confirmar', token=token, _external=True)
-        msg.set_content(f"Hola {username}, confirma tu cuenta haciendo click aquí: {link}")
-
-        try:
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-                smtp.login('tucorreo@gmail.com', 'tu_password')
-                smtp.send_message(msg)
-            flash("Correo de confirmación enviado. Revisa tu bandeja.")
-        except Exception as e:
-            print("Error enviando correo:", e)
-            flash("No se pudo enviar el correo.")
-
+        flash("Cuenta registrada correctamente. Espera activación del administrador.")
         return redirect(url_for('login'))
 
     return render_template('registro.html')
 
-# -------- CONFIRMAR CORREO --------
+# -------- CONFIRMAR CUENTA (opcional si decides usar token luego) --------
 @app.route('/confirmar/<token>')
 def confirmar(token):
     activar_usuario(token)
@@ -151,32 +143,26 @@ def dashboard_admin():
         rol=session.get('rol'),
         usuario=session.get('usuario')
     )
-    
+
 @app.route('/admin/usuarios')
+@login_required(rol="admin")
 def admin_usuarios():
-    if 'usuario' not in session or session.get('rol') != 'admin':
-        return redirect(url_for('login'))
     return render_template('admin_usuarios.html')
 
 @app.route('/admin/roles')
+@login_required(rol="admin")
 def admin_roles():
-    if 'usuario' not in session or session.get('rol') != 'admin':
-        return redirect(url_for('login'))
     return render_template('admin_roles.html')
 
 @app.route('/admin/mensajes')
+@login_required(rol="admin")
 def admin_mensajes():
-    if 'usuario' not in session or session.get('rol') != 'admin':
-        return redirect(url_for('login'))
     return render_template('admin_mensajes.html')
 
 @app.route('/admin/configuracion')
+@login_required(rol="admin")
 def admin_configuracion():
-    if 'usuario' not in session or session.get('rol') != 'admin':
-        return redirect(url_for('login'))
     return render_template('admin_configuracion.html')
-
-    
 
 # ============================================================
 # 👥 CREAR USUARIO DESDE ADMIN
@@ -185,10 +171,10 @@ def admin_configuracion():
 @app.route('/admin/crear_usuario', methods=['POST'])
 @login_required(rol="admin")
 def admin_crear_usuario():
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-    rol = request.form['rol']
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    rol = request.form.get('rol')
 
     creado = crear_usuario_admin(username, email, password, rol)
 
@@ -226,9 +212,9 @@ def dashboard_colaborador():
 # -------- GUARDAR MENSAJE --------
 @app.route('/enviar', methods=['POST'])
 def enviar():
-    nombre = request.form['nombre']
-    email = request.form['email']
-    mensaje = request.form['mensaje']
+    nombre = request.form.get('nombre')
+    email = request.form.get('email')
+    mensaje = request.form.get('mensaje')
 
     guardar_mensaje(nombre, email, mensaje)
     flash("Mensaje enviado correctamente")
