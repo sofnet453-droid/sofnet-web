@@ -1,82 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Panel Administrativo</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            display: flex;
-            background-color: #f4f6f9;
-        }
 
-        .sidebar {
-            width: 250px;
-            background: #1e293b;
-            color: white;
-            height: 100vh;
-            padding: 20px;
-        }
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
-        .sidebar h2 {
-            text-align: center;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-        }
-
-        .sidebar a:hover {
-            background: #334155;
-        }
-
-        .content {
-            flex: 1;
-            padding: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-.grid {
-    display: flex;
-    gap: 20px;
-}
-
-    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>SOFNET</h2>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo">
+    </div>
+
     <a href="{{ url_for('dashboard_admin') }}">📊 Dashboard</a>
-    <a href="#">👥 Usuarios</a>
-    <a href="#">🛡 Roles</a>
-    <a href="#">📩 Mensajes</a>
-    <a href="#">⚙ Configuración</a>
+    <a href="{{ url_for('admin_usuarios') }}">👥 Usuarios</a>
+    <a href="{{ url_for('admin_roles') }}">🛡 Roles</a>
+    <a href="{{ url_for('admin_mensajes') }}">📩 Mensajes</a>
+    <a href="{{ url_for('admin_configuracion') }}">⚙ Configuración</a>
     <a href="{{ url_for('logout') }}">🚪 Cerrar sesión</a>
 </div>
 

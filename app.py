@@ -151,6 +151,32 @@ def dashboard_admin():
         rol=session.get('rol'),
         usuario=session.get('usuario')
     )
+    
+@app.route('/admin/usuarios')
+def admin_usuarios():
+    if 'usuario' not in session or session.get('rol') != 'admin':
+        return redirect(url_for('login'))
+    return render_template('admin_usuarios.html')
+
+@app.route('/admin/roles')
+def admin_roles():
+    if 'usuario' not in session or session.get('rol') != 'admin':
+        return redirect(url_for('login'))
+    return render_template('admin_roles.html')
+
+@app.route('/admin/mensajes')
+def admin_mensajes():
+    if 'usuario' not in session or session.get('rol') != 'admin':
+        return redirect(url_for('login'))
+    return render_template('admin_mensajes.html')
+
+@app.route('/admin/configuracion')
+def admin_configuracion():
+    if 'usuario' not in session or session.get('rol') != 'admin':
+        return redirect(url_for('login'))
+    return render_template('admin_configuracion.html')
+
+    
 
 # ============================================================
 # 👥 CREAR USUARIO DESDE ADMIN
