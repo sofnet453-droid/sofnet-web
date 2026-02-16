@@ -450,3 +450,184 @@ body.dark-mode .accesibilidad button{
         color:#00c3ff !important;
     }
 }
+/* =====================================================
+   LOGIN PROFESIONAL
+===================================================== */
+
+.login-section{
+    min-height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+.login-card{
+    background:white;
+    padding:50px 40px;
+    width:100%;
+    max-width:420px;
+    border-radius:18px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.25);
+    text-align:center;
+    animation:fadeIn .5s ease;
+}
+
+.login-card h2{
+    margin-bottom:10px;
+    font-size:28px;
+}
+
+.login-subtitle{
+    font-size:14px;
+    opacity:.6;
+    margin-bottom:30px;
+}
+
+/* INPUTS */
+
+.input-group{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.input-group i{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#38ada9;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px 14px 14px 40px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:14px;
+    transition:.3s;
+}
+
+.input-group input:focus{
+    border-color:#38ada9;
+    outline:none;
+    box-shadow:0 0 0 3px rgba(56,173,169,0.2);
+}
+
+/* BOTON LOGIN */
+
+.btn-login{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#38ada9,#0a3d62);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-login:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* DIVIDER */
+
+.divider{
+    margin:25px 0;
+    position:relative;
+}
+
+.divider::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:1px;
+    background:#eee;
+    top:50%;
+    left:0;
+}
+
+.divider span{
+    background:white;
+    padding:0 15px;
+    position:relative;
+    font-size:13px;
+    color:#888;
+}
+
+/* GOOGLE BUTTON */
+
+.btn-google{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:white;
+    border:1px solid #ddd;
+    padding:12px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:500;
+    color:#444;
+    transition:.3s;
+}
+
+.btn-google img{
+    width:20px;
+}
+
+.btn-google:hover{
+    background:#f5f5f5;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* REGISTER */
+
+.register-text{
+    margin-top:20px;
+    font-size:14px;
+}
+
+.register-text a{
+    color:#38ada9;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.register-text a:hover{
+    text-decoration:underline;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* DARK MODE LOGIN */
+
+.dark-mode .login-card{
+    background:#1a2430;
+    color:white;
+}
+
+.dark-mode .input-group input{
+    background:#0f1720;
+    border:1px solid #2b3948;
+    color:white;
+}
+
+.dark-mode .divider span{
+    background:#1a2430;
+}
+
+.dark-mode .btn-google{
+    background:#0f1720;
+    border:1px solid #2b3948;
+    color:white;
+}
