@@ -52,16 +52,14 @@ def login():
         usuario = validar_usuario(username, password)
 
         if usuario:
-            session['usuario'] = usuario[1]
-            session['rol'] = usuario[4]
+            session['usuario'] = usuario["username"]
+            session['rol'] = usuario["rol"]
             flash("¡Bienvenido!")
 
-            # 🔥 REDIRECCIÓN SEGÚN ROL
-            if usuario[4] == "admin":
+            if usuario["rol"] == "admin":
                 return redirect(url_for('dashboard_admin'))
             else:
                 return redirect(url_for('dashboard_colaborador'))
-
         else:
             flash("Credenciales incorrectas o usuario no activado")
 
@@ -85,6 +83,7 @@ def login_google():
     username = info["name"]
 
     conn = sqlite3.connect("sofnet.db")
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
@@ -92,9 +91,9 @@ def login_google():
 
     if not usuario:
         cursor.execute("""
-            INSERT INTO usuarios (username, password, rol, email, confirmado)
+            INSERT INTO usuarios (username, email, password, rol, activo)
             VALUES (?, ?, ?, ?, ?)
-        """, (username, "google_auth", "colaborador", email, 1))
+        """, (username, email, "google_auth", "colaborador", 1))
         conn.commit()
 
         cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
@@ -102,13 +101,12 @@ def login_google():
 
     conn.close()
 
-    session['usuario'] = usuario[1]
-    session['rol'] = usuario[4]
+    session['usuario'] = usuario["username"]
+    session['rol'] = usuario["rol"]
 
     flash("Sesión iniciada con Google")
 
-    # 🔥 REDIRECCIÓN SEGÚN ROL
-    if usuario[4] == "admin":
+    if usuario["rol"] == "admin":
         return redirect(url_for("dashboard_admin"))
     else:
         return redirect(url_for("dashboard_colaborador"))
@@ -199,7 +197,7 @@ def enviar():
     flash("Mensaje enviado correctamente")
     return redirect(url_for('contacto'))
 
-# -------- PUERTO PARA RENDER --------
+# -------- PUERTO PARA RENDER / DESARROLLO --------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)

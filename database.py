@@ -8,6 +8,7 @@ import string
 
 def crear_db():
     conn = sqlite3.connect("sofnet.db")
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     # TABLA CONTACTOS
@@ -67,6 +68,7 @@ def guardar_mensaje(nombre, email, mensaje):
 # OBTENER MENSAJES
 def obtener_mensajes():
     conn = sqlite3.connect("sofnet.db")
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM contactos ORDER BY fecha DESC")
@@ -122,6 +124,7 @@ def activar_usuario(token):
 # VALIDAR LOGIN (SOLO ACTIVOS)
 def validar_usuario(username, password):
     conn = sqlite3.connect("sofnet.db")
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     cursor.execute("""
