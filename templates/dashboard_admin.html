@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Admin</title>
+</head>
+<body>
+    <h1>Panel Administrador</h1>
+    <p>Bienvenido {{ usuario }}</p>
+
+    <h2>Mensajes</h2>
+    {% for mensaje in mensajes %}
+        <p><strong>{{ mensaje.nombre }}</strong>: {{ mensaje.mensaje }}</p>
+    {% endfor %}
+
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</body>
+</html>

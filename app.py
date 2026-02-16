@@ -1,7 +1,6 @@
 import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from flask_dance.contrib.google import make_google_blueprint, google
 from database import crear_db, guardar_mensaje, obtener_mensajes, validar_usuario, registrar_usuario, activar_usuario
 import smtplib
 from email.message import EmailMessage
@@ -12,15 +11,18 @@ crear_db()
 app = Flask(__name__)
 app.secret_key = "sofnet_secret_key"
 
-# ---------------- GOOGLE OAUTH ----------------
-
-google_bp = make_google_blueprint(
-    client_id=os.environ.get("GOOGLE_CLIENT_ID"),
-    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
-    scope=["profile", "email"]
-)
-
-app.register_blueprint(google_bp, url_prefix="/login")
+# ============================================================
+# 🔹 GOOGLE OAUTH DESACTIVADO TEMPORALMENTE
+# ============================================================
+# from flask_dance.contrib.google import make_google_blueprint, google
+#
+# google_bp = make_google_blueprint(
+#     client_id=os.environ.get("GOOGLE_CLIENT_ID"),
+#     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
+#     scope=["profile", "email"]
+# )
+#
+# app.register_blueprint(google_bp, url_prefix="/login")
 
 # -------- INICIO --------
 @app.route('/')
@@ -65,52 +67,6 @@ def login():
 
     return render_template('login.html')
 
-# -------- LOGIN CON GOOGLE --------
-@app.route("/login/google")
-def login_google():
-
-    if not google.authorized:
-        return redirect(url_for("google.login"))
-
-    resp = google.get("/oauth2/v2/userinfo")
-
-    if not resp.ok:
-        flash("Error al obtener datos de Google")
-        return redirect(url_for("login"))
-
-    info = resp.json()
-    email = info["email"]
-    username = info["name"]
-
-    conn = sqlite3.connect("sofnet.db")
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
-    usuario = cursor.fetchone()
-
-    if not usuario:
-        cursor.execute("""
-            INSERT INTO usuarios (username, email, password, rol, activo)
-            VALUES (?, ?, ?, ?, ?)
-        """, (username, email, "google_auth", "colaborador", 1))
-        conn.commit()
-
-        cursor.execute("SELECT * FROM usuarios WHERE email=?", (email,))
-        usuario = cursor.fetchone()
-
-    conn.close()
-
-    session['usuario'] = usuario["username"]
-    session['rol'] = usuario["rol"]
-
-    flash("Sesión iniciada con Google")
-
-    if usuario["rol"] == "admin":
-        return redirect(url_for("dashboard_admin"))
-    else:
-        return redirect(url_for("dashboard_colaborador"))
-
 # -------- LOGOUT --------
 @app.route('/logout')
 def logout():
@@ -148,7 +104,7 @@ def registro():
                 smtp.send_message(msg)
             flash("Correo de confirmación enviado. Revisa tu bandeja.")
         except Exception as e:
-            print(e)
+            print("Error enviando correo:", e)
             flash("No se pudo enviar el correo. Contacta con el administrador.")
 
         return redirect(url_for('login'))
@@ -197,7 +153,7 @@ def enviar():
     flash("Mensaje enviado correctamente")
     return redirect(url_for('contacto'))
 
-# -------- PUERTO PARA RENDER / DESARROLLO --------
+# -------- PUERTO PARA RENDER --------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
