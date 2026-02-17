@@ -25,21 +25,16 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
 
 # ============================================================
-# 🔵 CONFIGURACIÓN GOOGLE OAUTH
+# 🔵 CONFIGURACIÓN GOOGLE OAUTH CORREGIDA
 # ============================================================
-
-app.config['GOOGLE_CLIENT_ID'] = os.environ.get("GOOGLE_CLIENT_ID")
-app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 oauth = OAuth(app)
 
 google = oauth.register(
     name='google',
-    client_id=app.config['GOOGLE_CLIENT_ID'],
-    client_secret=app.config['GOOGLE_CLIENT_SECRET'],
-    access_token_url='https://oauth2.googleapis.com/token',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_id=os.environ.get("GOOGLE_CLIENT_ID"),
+    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={
         'scope': 'openid email profile',
         'prompt': 'select_account'
@@ -85,7 +80,7 @@ def contacto():
     return render_template('contacto.html')
 
 # ============================================================
-# 🔑 LOGIN GENERAL
+# 🔑 LOGIN NORMAL
 # ============================================================
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -111,31 +106,28 @@ def login():
     return render_template('login.html')
 
 # ============================================================
-# 🔵 LOGIN GOOGLE REAL
+# 🔵 LOGIN GOOGLE FUNCIONAL
 # ============================================================
 
 @app.route('/login/google')
 def login_google():
-    redirect_uri = url_for('google_authorized', _external=True)
-    return google.authorize_redirect(redirect_uri)
+    return google.authorize_redirect(
+        url_for('google_authorized', _external=True)
+    )
 
 @app.route('/login/google/authorized')
 def google_authorized():
     token = google.authorize_access_token()
-    resp = google.get('userinfo')
-    user_info = resp.json()
+    user = google.parse_id_token(token)
 
-    email = user_info.get("email")
-    nombre = user_info.get("name")
+    email = user.get("email")
+    nombre = user.get("name")
 
-    # 🔹 Aquí puedes integrar con tu base de datos si deseas
-    # Por ahora lo autenticamos como colaborador
-
+    # Aquí puedes integrar validación con tu base de datos si quieres
     session['usuario'] = nombre
     session['rol'] = "colaborador"
 
     flash("Sesión iniciada con Google correctamente")
-
     return redirect(url_for('dashboard_colaborador'))
 
 # ============================================================
@@ -206,30 +198,6 @@ def dashboard_admin():
         usuario=session.get('usuario')
     )
 
-@app.route('/admin/usuarios')
-@login_required(rol="admin")
-def admin_usuarios():
-    return render_template('admin_usuarios.html')
-
-@app.route('/admin/roles')
-@login_required(rol="admin")
-def admin_roles():
-    return render_template('admin_roles.html')
-
-@app.route('/admin/mensajes')
-@login_required(rol="admin")
-def admin_mensajes():
-    return render_template('admin_mensajes.html')
-
-@app.route('/admin/configuracion')
-@login_required(rol="admin")
-def admin_configuracion():
-    return render_template('admin_configuracion.html')
-
-# ============================================================
-# 👥 CREAR USUARIO DESDE ADMIN
-# ============================================================
-
 @app.route('/admin/crear_usuario', methods=['POST'])
 @login_required(rol="admin")
 def admin_crear_usuario():
@@ -246,10 +214,6 @@ def admin_crear_usuario():
         flash("Error: usuario o correo ya existe")
 
     return redirect(url_for('dashboard_admin'))
-
-# ============================================================
-# 🔄 ACTIVAR / DESACTIVAR USUARIO
-# ============================================================
 
 @app.route('/admin/cambiar_estado/<int:user_id>/<int:estado>')
 @login_required(rol="admin")
@@ -272,7 +236,7 @@ def dashboard_colaborador():
     )
 
 # ============================================================
-# 📩 GUARDAR MENSAJE DE CONTACTO
+# 📩 GUARDAR MENSAJE
 # ============================================================
 
 @app.route('/enviar', methods=['POST'])
