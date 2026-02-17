@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
 
 # ============================================================
-# 🔵 CONFIGURACIÓN GOOGLE OAUTH CORREGIDA
+# 🔵 CONFIGURACIÓN GOOGLE OAUTH CORREGIDA DEFINITIVA
 # ============================================================
 
 oauth = OAuth(app)
@@ -106,7 +106,7 @@ def login():
     return render_template('login.html')
 
 # ============================================================
-# 🔵 LOGIN GOOGLE FUNCIONAL
+# 🔵 LOGIN GOOGLE FUNCIONAL (CORREGIDO)
 # ============================================================
 
 @app.route('/login/google')
@@ -118,12 +118,19 @@ def login_google():
 @app.route('/login/google/authorized')
 def google_authorized():
     token = google.authorize_access_token()
-    user = google.parse_id_token(token)
 
-    email = user.get("email")
-    nombre = user.get("name")
+    # Obtener datos del usuario desde Google
+    resp = google.get('userinfo')
+    user_info = resp.json()
 
-    # Aquí puedes integrar validación con tu base de datos si quieres
+    email = user_info.get("email")
+    nombre = user_info.get("name")
+
+    if not email:
+        flash("No se pudo obtener información del usuario")
+        return redirect(url_for('login'))
+
+    # Aquí puedes validar si el usuario existe en tu DB si quieres
     session['usuario'] = nombre
     session['rol'] = "colaborador"
 
