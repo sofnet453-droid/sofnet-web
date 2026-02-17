@@ -30,15 +30,15 @@
             <span>o</span>
         </div>
 
-        <!-- BOTÓN GOOGLE PROFESIONAL -->
-        <a href="/login/google" class="btn-google">
+        <!-- BOTÓN GOOGLE CORREGIDO -->
+        <a href="{{ url_for('login_google') }}" class="btn-google">
             <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
             Continuar con Google
         </a>
 
         <p class="register-text">
             ¿No tienes cuenta?
-            <a href="/registro">Regístrate aquí</a>
+            <a href="{{ url_for('registro') }}">Regístrate aquí</a>
         </p>
 
     </div>

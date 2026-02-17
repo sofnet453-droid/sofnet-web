@@ -14,14 +14,17 @@ from database import (
 )
 from functools import wraps
 
-# Crear base de datos automáticamente
+# ============================================================
+# 📌 CREAR BASE DE DATOS AUTOMÁTICAMENTE
+# ============================================================
+
 crear_db()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
 
 # ============================================================
-# 🔐 DECORADOR PARA PROTEGER RUTAS
+# 🔐 DECORADOR PARA PROTEGER RUTAS POR ROL
 # ============================================================
 
 def login_required(rol=None):
@@ -38,27 +41,30 @@ def login_required(rol=None):
         return wrapped
     return decorator
 
-# -------- INICIO --------
+# ============================================================
+# 🌐 PÁGINAS PÚBLICAS
+# ============================================================
+
 @app.route('/')
 def inicio():
     return render_template('index.html')
 
-# -------- SERVICIOS --------
 @app.route('/servicios')
 def servicios():
     return render_template('servicios.html')
 
-# -------- NOSOTROS --------
 @app.route('/nosotros')
 def nosotros():
     return render_template('nosotros.html')
 
-# -------- CONTACTO --------
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
 
-# -------- LOGIN GENERAL --------
+# ============================================================
+# 🔑 LOGIN GENERAL
+# ============================================================
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -81,20 +87,26 @@ def login():
 
     return render_template('login.html')
 
-# -------- LOGIN GOOGLE (TEMPORAL PARA EVITAR ERROR) --------
+# ============================================================
+# 🔵 LOGIN GOOGLE (TEMPORAL)
+# ============================================================
+
 @app.route('/login-google')
 def login_google():
     flash("Login con Google próximamente disponible")
     return redirect(url_for('login'))
 
-# -------- LOGOUT --------
+# ============================================================
+# 🚪 LOGOUT
+# ============================================================
+
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('inicio'))
 
 # ============================================================
-# -------- REGISTRO --------
+# 📝 REGISTRO
 # ============================================================
 
 @app.route('/registro', methods=['GET', 'POST'])
@@ -124,7 +136,10 @@ def registro():
 
     return render_template('registro.html')
 
-# -------- CONFIRMAR CUENTA --------
+# ============================================================
+# ✅ CONFIRMAR CUENTA
+# ============================================================
+
 @app.route('/confirmar/<token>')
 def confirmar(token):
     activar_usuario(token)
@@ -214,7 +229,10 @@ def dashboard_colaborador():
         usuario=session.get('usuario')
     )
 
-# -------- GUARDAR MENSAJE --------
+# ============================================================
+# 📩 GUARDAR MENSAJE DE CONTACTO
+# ============================================================
+
 @app.route('/enviar', methods=['POST'])
 def enviar():
     nombre = request.form.get('nombre')
@@ -225,7 +243,10 @@ def enviar():
     flash("Mensaje enviado correctamente")
     return redirect(url_for('contacto'))
 
-# -------- PUERTO --------
+# ============================================================
+# 🚀 EJECUCIÓN
+# ============================================================
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)

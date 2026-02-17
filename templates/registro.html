@@ -157,7 +157,7 @@ button.loading{
 
 <div class="input-group">
 <i class="fa fa-lock"></i>
-<input type="password" id="password" placeholder="Contraseña" required>
+<input type="password" id="password" name="password" placeholder="Contraseña" required>
 <div class="strength" id="strength"></div>
 </div>
 
@@ -166,14 +166,14 @@ button.loading{
 <input type="password" name="confirmar" placeholder="Confirmar contraseña" required>
 </div>
 
-<button id="btn">Registrarse</button>
+<button type="submit" id="btn">Registrarse</button>
 
 </form>
 
-<button type="button" class="google-btn" onclick="window.location.href='{{ url_for('login_google') }}'">
-    Continuar con Google
+<button class="google-btn" onclick="window.location.href='{{ url_for('login_google') }}'">
+<img src="https://developers.google.com/identity/images/g-logo.png">
+Registrarse con Google
 </button>
-
 
 <a href="{{ url_for('login') }}" class="back-btn">
 <i class="fa fa-arrow-left"></i> Volver al login
