@@ -81,6 +81,12 @@ def login():
 
     return render_template('login.html')
 
+# -------- LOGIN GOOGLE (TEMPORAL PARA EVITAR ERROR) --------
+@app.route('/login-google')
+def login_google():
+    flash("Login con Google próximamente disponible")
+    return redirect(url_for('login'))
+
 # -------- LOGOUT --------
 @app.route('/logout')
 def logout():
@@ -88,7 +94,7 @@ def logout():
     return redirect(url_for('inicio'))
 
 # ============================================================
-# -------- REGISTRO (SIN ENVÍO DE CORREO) --------
+# -------- REGISTRO --------
 # ============================================================
 
 @app.route('/registro', methods=['GET', 'POST'])
@@ -99,7 +105,6 @@ def registro():
         password = request.form.get('password')
         confirmar = request.form.get('confirmar')
 
-        # Validaciones básicas
         if not username or not email or not password or not confirmar:
             flash("Todos los campos son obligatorios")
             return redirect(url_for('registro'))
@@ -119,7 +124,7 @@ def registro():
 
     return render_template('registro.html')
 
-# -------- CONFIRMAR CUENTA (opcional si decides usar token luego) --------
+# -------- CONFIRMAR CUENTA --------
 @app.route('/confirmar/<token>')
 def confirmar(token):
     activar_usuario(token)
