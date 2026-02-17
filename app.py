@@ -13,6 +13,7 @@ from database import (
     cambiar_estado_usuario
 )
 from functools import wraps
+from authlib.integrations.flask_client import OAuth
 
 # ============================================================
 # 📌 CREAR BASE DE DATOS AUTOMÁTICAMENTE
@@ -22,6 +23,28 @@ crear_db()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "sofnet_secret_key")
+
+# ============================================================
+# 🔵 CONFIGURACIÓN GOOGLE OAUTH
+# ============================================================
+
+app.config['GOOGLE_CLIENT_ID'] = os.environ.get("GOOGLE_CLIENT_ID")
+app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get("GOOGLE_CLIENT_SECRET")
+
+oauth = OAuth(app)
+
+google = oauth.register(
+    name='google',
+    client_id=app.config['GOOGLE_CLIENT_ID'],
+    client_secret=app.config['GOOGLE_CLIENT_SECRET'],
+    access_token_url='https://oauth2.googleapis.com/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_kwargs={
+        'scope': 'openid email profile',
+        'prompt': 'select_account'
+    }
+)
 
 # ============================================================
 # 🔐 DECORADOR PARA PROTEGER RUTAS POR ROL
@@ -88,13 +111,32 @@ def login():
     return render_template('login.html')
 
 # ============================================================
-# 🔵 LOGIN GOOGLE (TEMPORAL)
+# 🔵 LOGIN GOOGLE REAL
 # ============================================================
 
-@app.route('/login-google')
+@app.route('/login/google')
 def login_google():
-    flash("Login con Google próximamente disponible")
-    return redirect(url_for('login'))
+    redirect_uri = url_for('google_authorized', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route('/login/google/authorized')
+def google_authorized():
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    user_info = resp.json()
+
+    email = user_info.get("email")
+    nombre = user_info.get("name")
+
+    # 🔹 Aquí puedes integrar con tu base de datos si deseas
+    # Por ahora lo autenticamos como colaborador
+
+    session['usuario'] = nombre
+    session['rol'] = "colaborador"
+
+    flash("Sesión iniciada con Google correctamente")
+
+    return redirect(url_for('dashboard_colaborador'))
 
 # ============================================================
 # 🚪 LOGOUT
